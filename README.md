@@ -8,7 +8,9 @@ Practica cero para la materia Estructura de datos y algoritmos 2.
 * Carolina Arcos
 * Luis M Ponce de leon
 
-
+##Arquitectura
+![alt text](http://www.gliffy.com/go/publish/image/5355135/L.png)
+* [Diagrama de clases online] (https://www.gliffy.com/go/html5/5355135)
 
 ##Referencias
 
