@@ -44,4 +44,13 @@ public class Tablero {
         return true;
     }
     
+    /**
+     * Metodo para evalura heuristicamente el estado del tablero.
+     * 
+     * @return Un numero positivo si la AI gana, negativo si el jugador gana.
+     */
+    private int EvaluarEstado() {
+        
+        return 0;
+    }
 }
