@@ -47,7 +47,7 @@ public class Tablero {
      * 
      * @return Un numero positivo si la AI gana, negativo si el jugador gana.
      */
-    private int EvaluarEstado() {
+    public int EvaluarEstado() {
         
         return 0;
     }
