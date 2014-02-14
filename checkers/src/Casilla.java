@@ -1,8 +1,7 @@
 
 
 /**
- *
- * @author luisponcedeleon
+ * 
  */
 public enum Casilla {
    /**

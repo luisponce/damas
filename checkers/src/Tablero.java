@@ -1,8 +1,6 @@
 
 /**
- *
- * 
- * @author luisponcedeleon
+ * Clase para representar un tablero de damas.
  */
 public class Tablero {
     /**
