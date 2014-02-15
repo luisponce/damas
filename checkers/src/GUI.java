@@ -1,5 +1,7 @@
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.*;
 
 /**
  * Interfaz Grafica
@@ -8,6 +10,7 @@ public class GUI extends javax.swing.JFrame {
 
     public GUI() {
         initComponents();
+        crearMatriz();
         
     }
 
@@ -20,6 +23,7 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -31,6 +35,8 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+
+        jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +63,9 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel3.setPreferredSize(new java.awt.Dimension(400, 400));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -76,14 +84,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Notificaciones"));
@@ -140,8 +150,9 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void crearMatriz() {
-        float dimensionX = jPanel3.getAlignmentX();
-        float dimensionY = jPanel3.getAlignmentY();
+        jPanel3.setLayout(null);
+        int dimensionX = jPanel3.getWidth();
+        int dimensionY = jPanel3.getHeight();
         float sizeX = dimensionX/8;
         float sizeY = dimensionY/8;
         int tamañoX = (int)sizeX;
@@ -149,15 +160,17 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 1; i<=8; i++) {
             for (int j = 1; j<=8; j++) {
                 if ((i+j) % 2 == 0) {
+                    //ImageIcon imagen = new ImageIcon ("imagen_a_mostrar-jpg");
                     javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
                     jPanelNew.setBackground(Color.white);
-                    jPanelNew.setSize(tamañoX, tamañoY);
-                    jPanel3.add(jPanelNew, tamañoX*i);                    
+                    //jPanelNew.setIcon(imagen);
+                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);
+                    jPanel3.add(jPanelNew);                    
                 } else {
                     javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
                     jPanelNew.setBackground(Color.black);
-                    jPanelNew.setSize(tamañoX, tamañoY);
-                    jPanel3.add(jPanelNew, tamañoX*i);
+                    jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                    jPanel3.add(jPanelNew);
                 }
             } 
         }
@@ -207,5 +220,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JToolBar jToolBar1;
     // End of variables declaration//GEN-END:variables
 }
