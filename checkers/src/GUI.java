@@ -1,8 +1,9 @@
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import javax.swing.*;
-
+//import java.swing.ImageIcon;
 /**
  * Interfaz Grafica
  */
@@ -157,17 +158,35 @@ public class GUI extends javax.swing.JFrame {
         int tamañoY = (int)sizeY;
         for (int i = 1; i<=8; i++) {
             for (int j = 1; j<=8; j++) {
-                if ((i+j) % 2 == 0) {
-                    //ImageIcon imagen = new ImageIcon ("imagen_a_mostrar-jpg");
+                if ((i+j) % 2 != 0) {
+                    //if ();
                     javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
-                    jPanelNew.setBackground(Color.white);
-                    //jPanelNew.setIcon(imagen);
-                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);
+                    //ImageIcon ima = new ImageIcon ("negra.jpg");
+                    //JLabel lbl = new JLabel();
+                    //lbl.setIcon(ima);
+                    //jPanelNew.add(lbl, null);
+                    jPanelNew.setBackground(Color.white);                    
+                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);                    
                     pnlTablero.add(jPanelNew);                    
                 } else {
                     javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
                     jPanelNew.setBackground(Color.black);
-                    jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                    if (j<=3) {
+                        ImageIcon imagen = new ImageIcon ("blanca.jpg");
+                        JLabel background  = new JLabel();            
+                        background.setIcon(imagen);
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                        jPanelNew.add(background);    
+                    } else if (j>=6) {
+                        ImageIcon imagen = new ImageIcon ("negra.jpg");
+                        JLabel background  = new JLabel();            
+                        background.setIcon(imagen);
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                        jPanelNew.add(background); 
+                    }else {
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                    };
+                    
                     pnlTablero.add(jPanelNew);
                 }
             } 
