@@ -5,3 +5,4 @@
 *.war
 *.ear
 /checkers/nbproject/private/
+/checkers/build/
