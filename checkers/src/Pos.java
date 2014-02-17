@@ -12,6 +12,11 @@ public class Pos {
         this.x = x;
         this.y = y;
     }
+    
+    @Override
+    public String toString(){
+        return "" + x + "" + y;
+    }
 
     public int getX() {
         return x;

@@ -26,7 +26,28 @@ public class Tablero {
      * @param posF Posicion Final de la ficha.
      */
     public void Mover(Pos posI, Pos posF){
+        if(posF.getY() == 0 || posF.getY() == 8){ //si corono la ficha
+            if (board[posI.getX()][posI.getY()]==Casilla.BLACK) {
+                board[posF.getX()][posF.getY()]=Casilla.BLACKQUEEN;
+            } else {
+                board[posF.getX()][posF.getY()]=Casilla.WHITEQUEEN;
+            }
+            
+//            TODO: Escribir en el log que corono la ficha al terminar el turno
+        } else {
+            board[posF.getX()][posF.getY()] = board[posI.getX()][posI.getY()];
+        }
         
+        board[posI.getX()][posI.getY()] = Casilla.EMPTY;
+        
+        String str = posI.toString() + " " + posF.toString();
+        if(Math.abs(posI.getX()-posF.getX()) > 0){ //si capturo una ficha
+            str = "C " + str;
+            GameMaster.getInstance().AddLog(str);
+        } else {
+            GameMaster.getInstance().AddLog(str);
+            GameMaster.getInstance().TerminarTurno();
+        }
     }
     
     /**

@@ -7,25 +7,25 @@ public enum Casilla {
    /**
     * EMPTY: casilla vacia
     */
-    E,
+    EMPTY,
     
     /**
      * BLACK: Casilla con ficha negra
      */
-    B,
+    BLACK,
     
     /**
      * WHITE: Casilla con ficha blanca
      */
-    W, 
+    WHITE, 
     
     /**
      * BLACK QUEEN: Casilla con ficha negra coronada
      */
-    BC,
+    BLACKQUEEN,
     
     /**
      * WHITE QUEEN: Casilla con ficha blanca coronada
      */
-    WC 
+    WHITEQUEEN 
 }
