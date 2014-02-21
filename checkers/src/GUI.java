@@ -40,6 +40,7 @@ public class GUI extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Historial"));
 
@@ -192,6 +193,10 @@ public class GUI extends javax.swing.JFrame {
             } 
         }
     }
+    
+    public void actualizarLog(String str){
+        txtHistorial.setText(str);
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -217,6 +222,15 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        //DEBUG!!!----------------
+//        Tablero t = new Tablero();
+//        t.print();
+//        t.Mover(new Pos(1, 5), new Pos(0, 4));
+//        t.print();
+        //END DEBUG---------------
+        
+        GameMaster gm = GameMaster.getInstance();
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -8,14 +8,24 @@ public class Tablero {
      */
     private Casilla[][] board = new Casilla[8][8];
     
-    /**
-     * Metodo para duplicar el tablero.
-     * 
-     * @return Una copia del tablero.
-     */
-    public Tablero Duplicar(){
+    public Tablero(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = Casilla.EMPTY;
+            }
+        }
         
-        return null;
+        for (int i = 0; i < 3; i++) {
+            for (int j = i%2; j < 8; j+=2) {
+                board[i][j] = Casilla.WHITE;
+            }
+        }
+        
+        for (int i = 5; i < 8; i++) {
+            for (int j = i%2; j < 8; j+=2) {
+                board[i][j] = Casilla.BLACK;
+            }
+        }
     }
     
     /**
@@ -27,21 +37,21 @@ public class Tablero {
      */
     public void Mover(Pos posI, Pos posF){
         if(posF.getY() == 0 || posF.getY() == 8){ //si corono la ficha
-            if (board[posI.getX()][posI.getY()]==Casilla.BLACK) {
-                board[posF.getX()][posF.getY()]=Casilla.BLACKQUEEN;
+            if (board[posI.getY()][posI.getX()]==Casilla.BLACK) {
+                board[posF.getY()][posF.getX()]=Casilla.BLACKQUEEN;
             } else {
-                board[posF.getX()][posF.getY()]=Casilla.WHITEQUEEN;
+                board[posF.getY()][posF.getX()]=Casilla.WHITEQUEEN;
             }
             
-//            TODO: Escribir en el log que corono la ficha al terminar el turno
+            GameMaster.getInstance().EndLogR();
         } else {
-            board[posF.getX()][posF.getY()] = board[posI.getX()][posI.getY()];
+            board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
         }
         
-        board[posI.getX()][posI.getY()] = Casilla.EMPTY;
+        board[posI.getY()][posI.getX()] = Casilla.EMPTY;
         
         String str = posI.toString() + " " + posF.toString();
-        if(Math.abs(posI.getX()-posF.getX()) > 0){ //si capturo una ficha
+        if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
             str = "C " + str;
             GameMaster.getInstance().AddLog(str);
         } else {
@@ -72,4 +82,17 @@ public class Tablero {
         
         return 0;
     }
+    
+    
+    //DEBUG!!!!!!
+//    public void print(){
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                System.out.print(board[i][j] + " ");
+//            }
+//            
+//            System.out.print("\n");
+//        }
+//        System.out.print("\n");
+//    }
 }
