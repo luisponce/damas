@@ -3,15 +3,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 //import java.swing.ImageIcon;
 /**
  * Interfaz Grafica
  */
 public class GUI extends javax.swing.JFrame {
-
+    
+    JPanel panel[][] = new JPanel [8][8];
+    private ManejadorClicks manejadorClicks;
     public GUI() {
         initComponents();
-        crearMatriz();
+        crearMatriz();   
+        manejadorClicks = new ManejadorClicks(this);
         
     }
 
@@ -148,51 +153,11 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void crearMatriz() {
-        pnlTablero.setLayout(null);
-        int dimensionX = pnlTablero.getWidth();
-        int dimensionY = pnlTablero.getHeight();
-        float sizeX = dimensionX/8;
-        float sizeY = dimensionY/8;
-        int tamañoX = (int)sizeX;
-        int tamañoY = (int)sizeY;
-        for (int i = 1; i<=8; i++) {
-            for (int j = 1; j<=8; j++) {
-                if ((i+j) % 2 != 0) {
-                    //if ();
-                    javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
-                    //ImageIcon ima = new ImageIcon ("negra.jpg");
-                    //JLabel lbl = new JLabel();
-                    //lbl.setIcon(ima);
-                    //jPanelNew.add(lbl, null);
-                    jPanelNew.setBackground(Color.white);                    
-                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);                    
-                    pnlTablero.add(jPanelNew);                    
-                } else {
-                    javax.swing.JPanel jPanelNew = new javax.swing.JPanel();
-                    jPanelNew.setBackground(Color.black);
-                    if (j<=3) {
-                        ImageIcon imagen = new ImageIcon ("blanca.jpg");
-                        JLabel background  = new JLabel();            
-                        background.setIcon(imagen);
-                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-                        jPanelNew.add(background);    
-                    } else if (j>=6) {
-                        ImageIcon imagen = new ImageIcon ("negra.jpg");
-                        JLabel background  = new JLabel();            
-                        background.setIcon(imagen);
-                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-                        jPanelNew.add(background); 
-                    }else {
-                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-                    };
-                    
-                    pnlTablero.add(jPanelNew);
-                }
-            } 
-        }
-    }
-
+   /**
+    * Crea la matriz de paneles por colores y coloca las fichas en la posicion inicial
+    */
+    
+     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -225,6 +190,48 @@ public class GUI extends javax.swing.JFrame {
         });
         
     }
+    private void crearMatriz() {
+        pnlTablero.setLayout(null);
+        int dimensionX = pnlTablero.getWidth();
+        int dimensionY = pnlTablero.getHeight();
+        float sizeX = dimensionX/8;
+        float sizeY = dimensionY/8;
+        int tamañoX = (int)sizeX;
+        int tamañoY = (int)sizeY;
+        for (int i = 1; i<=8; i++) {
+            for (int j = 1; j<=8; j++) {
+                JPanel jPanelNew = new JPanel();
+                if ((i+j) % 2 != 0) {
+                    
+                    jPanelNew.setBackground(Color.white);                    
+                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);                    
+                    pnlTablero.add(jPanelNew);
+                } else {
+                    jPanelNew.setBackground(Color.black);
+                    if (j<=3) {
+                        ImageIcon imagen = new ImageIcon ("blanca.jpg");
+                        JLabel background  = new JLabel();            
+                        background.setIcon(imagen);                        
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                        jPanelNew.add(background);    
+                    } else if (j>=6) {
+                        ImageIcon imagen = new ImageIcon ("negra.jpg");
+                        JLabel background  = new JLabel();            
+                        background.setIcon(imagen);
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+                        jPanelNew.add(background);                         
+                    }else {
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
+
+                    };
+                    //pnlTablero.add(jPanelNew);                   
+                }
+                panel[i-1][j-1] = jPanelNew;
+            } 
+        }
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -235,8 +242,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JPanel pnlTablero;
+    public javax.swing.JPanel pnlTablero;
     private javax.swing.JTextArea txtHistorial;
     private javax.swing.JTextArea txtNotificaciones;
     // End of variables declaration//GEN-END:variables
-}
+    
+    
+    }
+
+
