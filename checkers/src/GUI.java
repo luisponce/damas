@@ -11,7 +11,7 @@ import java.awt.event.*;
  */
 public class GUI extends javax.swing.JFrame {
     
-    JPanel panel[][] = new JPanel [8][8];
+    Panel panel[][] = new Panel [8][4];
     private ManejadorClicks manejadorClicks;
     public GUI() {
         initComponents();
@@ -190,48 +190,63 @@ public class GUI extends javax.swing.JFrame {
         });
         
     }
-    private void crearMatriz() {
-        pnlTablero.setLayout(null);
+    
+    private void crearMatriz() { //Metodo para crear los paneles y guardarlos con sus caracteristicas en la matriz de GUI
+       pnlTablero.setLayout(null);
         int dimensionX = pnlTablero.getWidth();
         int dimensionY = pnlTablero.getHeight();
         float sizeX = dimensionX/8;
         float sizeY = dimensionY/8;
         int tamañoX = (int)sizeX;
         int tamañoY = (int)sizeY;
+        int arrX = 0;
         for (int i = 1; i<=8; i++) {
+            int arrY = 0;
             for (int j = 1; j<=8; j++) {
+                Panel newP = new Panel(); // "panel" tipo Panel para guardar en la matriz GUI
                 JPanel jPanelNew = new JPanel();
-                if ((i+j) % 2 != 0) {
-                    
-                    jPanelNew.setBackground(Color.white);                    
-                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);                    
-                    pnlTablero.add(jPanelNew);
+                if ((i+j) % 2 != 0) {                    
+                    jPanelNew.setBackground(Color.white);             
+                    jPanelNew.setEnabled(false);
+                    jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);//tamañoX = tamaño horizontal; tamañoY = tamaño vertical                
                 } else {
                     jPanelNew.setBackground(Color.black);
-                    if (j<=3) {
+                    if (j<=3) { //Si es de las primeras 3 filas pone ficha blanca
                         ImageIcon imagen = new ImageIcon ("blanca.jpg");
                         JLabel background  = new JLabel();            
                         background.setIcon(imagen);                        
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                         jPanelNew.add(background);    
-                    } else if (j>=6) {
+                    } else if (j>=6) { // si es de las ultimas 3 filas pone ficha negra
                         ImageIcon imagen = new ImageIcon ("negra.jpg");
                         JLabel background  = new JLabel();            
                         background.setIcon(imagen);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                         jPanelNew.add(background);                         
-                    }else {
+                    }else { //Si no va con ficha
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-
-                    };
-                    //pnlTablero.add(jPanelNew);                   
-                }
-                panel[i-1][j-1] = jPanelNew;
+                    }
+                    newP.setValorX((i-1)*tamañoX); //guarda el valor x donde lo ubico
+                    newP.setValorY((j-1)*tamañoY); // guarda el valor y donde lo ubico
+                    newP.setJPanel(jPanelNew); //añade el panel creado a el Panel para guardarlo en la matriz
+                    int xy = concatenarInt(arrX, arrY);
+                    newP.setValorArreglo(xy);
+                    panel[arrX][arrY] = newP; //guarda el "panel" en la matriz
+                    arrY++;                 
+                } 
             } 
+            arrX++;
         }
     }
     
-    
+    private int concatenarInt(int x, int y) {
+        String xx = String.valueOf(x);
+        String yy = String.valueOf(y);
+        String xxyy = xx + yy;
+        int xy =Integer.parseInt(xxyy);
+        return (xy);
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

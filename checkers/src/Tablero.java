@@ -1,4 +1,3 @@
-
 /**
  * Clase para representar un tablero de damas.
  */
