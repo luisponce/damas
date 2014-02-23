@@ -76,6 +76,9 @@ public class Tablero {
         
         Casilla ficha = board[posI.getY()][posI.getX()];
         
+        if (ficha==Casilla.EMPTY) return false;
+            
+            
         //si no es mi ficha o no va en la direccion adecuada
         if (esTurnoAI) {
             if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){

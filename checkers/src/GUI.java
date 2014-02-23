@@ -24,8 +24,6 @@ public class GUI extends javax.swing.JFrame {
         gm = GameMaster.getInstance();
         
         gm.IniciarJuego(this);
-        
-        panel[4][4].changeImg(Casilla.BLACK);
     }
 
     /**
