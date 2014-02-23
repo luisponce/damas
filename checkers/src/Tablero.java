@@ -69,6 +69,13 @@ public class Tablero {
      * @return True si es valido, False si no lo es.
      */
     public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
+        if (esTurnoAI) {
+            Casilla ficha = board[posI.getY()][posI.getX()];
+            if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
+                return
+            }
+        }
+        
         
         return true;
     }

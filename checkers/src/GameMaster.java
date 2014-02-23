@@ -10,6 +10,7 @@ public class GameMaster {
     private AI player2;
     private boolean corono;
     private boolean esTurnoAI;
+    private GUI gui;
     
     public static GameMaster getInstance(){
         if (instance==null) {
@@ -33,11 +34,20 @@ public class GameMaster {
         }
         AddLog("\n");
         
-        esTurnoAI = false;
+        corono = false;
+        
+        esTurnoAI = !esTurnoAI;
+        if(esTurnoAI) gui.agregarNotificacion("Turno del Jugador2");
+        else gui.agregarNotificacion("Turno del Jugador1");
     }
     
-    public void IniciarJuego(){
-        
+    public void IniciarJuego(GUI gui){
+        board = new Tablero();
+        esTurnoAI = false;
+        log = "";
+        this.gui = gui;
+        gui.agregarNotificacion("Partida Iniciada");
+        gui.agregarNotificacion("Turno del Jugador1");
     }
     
     public void EndLogR(){
