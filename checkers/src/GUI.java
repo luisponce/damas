@@ -5,6 +5,7 @@ import java.awt.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.vecmath.GMatrix;
 //import java.swing.ImageIcon;
 /**
  * Interfaz Grafica
@@ -13,11 +14,16 @@ public class GUI extends javax.swing.JFrame {
     
     Panel panel[][] = new Panel [8][8];
     private ManejadorClicks manejadorClicks;
+    private GameMaster gm;
+    
     public GUI() {
         initComponents();
         crearMatriz();   
         manejadorClicks = new ManejadorClicks(this);
         
+        gm = GameMaster.getInstance();
+        
+        gm.IniciarJuego(this);
     }
 
     /**
@@ -186,12 +192,12 @@ public class GUI extends javax.swing.JFrame {
 //        t.print();
         //END DEBUG---------------
         
-        GameMaster gm = GameMaster.getInstance();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
+                
             }
         });
         
@@ -223,9 +229,8 @@ public class GUI extends javax.swing.JFrame {
                     }else { //Si no va con ficha
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                     }
-                    jPanelNew.setValorX((i-1)*tamañoX); //guarda el valor x donde lo ubico
-                    jPanelNew.setValorY((j-1)*tamañoY); // guarda el valor y donde lo ubico
-                    jPanelNew.setValorArreglo("" + (i-1) + (j-1));
+                    jPanelNew.setValorX((i-1)); //guarda el valor x donde lo ubico
+                    jPanelNew.setValorY((j-1)); // guarda el valor y donde lo ubico
                     panel[i-1][j-1] = jPanelNew; //guarda el "panel" en la matriz            
                 }
             }

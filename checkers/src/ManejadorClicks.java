@@ -5,10 +5,14 @@ import javax.swing.JPanel;
 
     public class ManejadorClicks extends JPanel implements MouseListener {
         private GUI interfaz;
+        private boolean selected;
+        private Pos selectedPos;
+        
         @SuppressWarnings("LeakingThisInConstructor")
         public ManejadorClicks(GUI interfaz) {            
             super();  
             this.interfaz = interfaz;
+            this.selected = false;
             
             for (int i = 0; i<8; i++) { // le crea a cada panel de la matriz de GUI el mouseListener y lo añade a pnlTablero para que se vea
                 for (int j = i%2; j<8; j+=2) {
@@ -28,7 +32,19 @@ import javax.swing.JPanel;
 //            System.out.println("Este es el clicked");
             
             Panel p = (Panel) evento.getSource();
-            System.out.println(p.getValorArreglo());
+            
+            if (!selected) {
+                selected = true;
+                selectedPos = new Pos(p.valorX, p.valorY);
+            } else {
+                if (p.valorX != selectedPos.getX() || p.valorY != selectedPos.getY()) {
+                    GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.valorX, p.valorY));
+                }
+                selected = false;
+                selectedPos = null;
+            }
+            
+//            System.out.println(p.getValorArreglo());
             
         }
         

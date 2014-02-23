@@ -33,10 +33,6 @@ public class Panel extends JPanel{
                 break;
         }
     }
-    
-    public void setValorArreglo(String valorArreglo){
-        this.valorArreglo = valorArreglo;
-    }
     public void setValorX(int x) {
         valorX = x;
     }
@@ -50,7 +46,7 @@ public class Panel extends JPanel{
         return valorY;
     }
     public String getValorArreglo() {
-        return valorArreglo;
+        return "" + getValorX() + "" + getValorY();
     }
     
 }

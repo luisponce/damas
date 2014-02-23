@@ -50,7 +50,19 @@ public class GameMaster {
         gui.agregarNotificacion("Turno del Jugador1");
     }
     
+    public void realizarMovimiento(Pos posI, Pos PosF){
+        if(board.Validar(posI, PosF, esTurnoAI)){
+            board.Mover(posI, PosF);
+        } else {
+            gui.agregarNotificacion("Movimiento invalido");
+        }
+    }
+    
     public void EndLogR(){
         corono=true;
+    }
+
+    public Tablero getBoard() {
+        return board;
     }
 }
