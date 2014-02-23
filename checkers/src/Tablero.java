@@ -60,6 +60,7 @@ public class Tablero {
             GameMaster.getInstance().AddLog(str);
             GameMaster.getInstance().TerminarTurno();
         }
+        GameMaster.getInstance().getGUI().actualizarBoard(this); //actualiza panel para mostrar
     }
     
     /**
@@ -159,4 +160,7 @@ public class Tablero {
 //        }
 //        System.out.print("\n");
 //    }
+    public Casilla getBoard(int i, int j) {
+        return board[i][j];
+    }
 }

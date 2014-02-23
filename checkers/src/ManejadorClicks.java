@@ -11,6 +11,7 @@ import javax.swing.JPanel;
         @SuppressWarnings("LeakingThisInConstructor")
         public ManejadorClicks(GUI interfaz) {            
             super();  
+
             this.interfaz = interfaz;
             this.selected = false;
             
@@ -45,7 +46,6 @@ import javax.swing.JPanel;
             }
             
 //            System.out.println(p.getValorArreglo());
-            
         }
         
         @Override        
@@ -65,7 +65,6 @@ import javax.swing.JPanel;
         }
         @Override
         public void mouseReleased(MouseEvent evento) {//Se require para el MouseL
-//            System.out.println("Este es e Released");
-            
+//            System.out.println("Este es e Released");            
         }
     }

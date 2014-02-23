@@ -5,11 +5,9 @@ import javax.swing.JPanel;
 
 /**
  * Clase tipo de matriz GUI
- * @author ALICIA PRATS
  */
 
 public class Panel extends JPanel{
-    private String valorArreglo; // concatenado la posicion xy en la que se ubico en la matriz
     public int valorX; // esta por el momento que indica la posicion en el panel x
     public int valorY; // esta por el momento que indica la posicion en el panel y
     
@@ -29,6 +27,20 @@ public class Panel extends JPanel{
                 background.setIcon(imagen);
                 add(background);
                 break;
+                /*
+            case BLACKQUEEN:
+                imagen = new ImageIcon("");
+                background  = new JLabel();            
+                background.setIcon(imagen);
+                add(background);
+                break;
+            case WHITEQUEEN: 
+                imagen = new ImageIcon("");
+                background  = new JLabel();            
+                background.setIcon(imagen);
+                add(background);
+                break;
+                */
             default:
                 break;
         }
