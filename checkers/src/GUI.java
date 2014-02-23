@@ -231,7 +231,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     jPanelNew.setValorX((i-1)*tamañoX); //guarda el valor x donde lo ubico
                     jPanelNew.setValorY((j-1)*tamañoY); // guarda el valor y donde lo ubico
-                    jPanelNew.setValorArreglo("" + i + j);
+                    jPanelNew.setValorArreglo("" + (i-1) + (j-1));
                     panel[i-1][j-1] = jPanelNew; //guarda el "panel" en la matriz            
                 }
             }
@@ -240,6 +240,14 @@ public class GUI extends javax.swing.JFrame {
     
     public void actualizarLog(String str){
         txtHistorial.setText(str);
+    }
+    
+    public void actualizarBoard(Tablero newBoard){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                
+            }
+        }
     }
     
     public void agregarNotificacion(String str){

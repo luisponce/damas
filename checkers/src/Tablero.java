@@ -51,6 +51,9 @@ public class Tablero {
         
         String str = posI.toString() + " " + posF.toString();
         if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
+            int dirX = posF.getX()-posI.getX();
+            int dirY = posF.getY()-posI.getY();
+            board[posI.getY()+dirY][posI.getX()+dirX] = Casilla.EMPTY;
             str = "C " + str;
             GameMaster.getInstance().AddLog(str);
         } else {
@@ -67,17 +70,72 @@ public class Tablero {
      * @param esTurnoAI True si es el turno de la AI, false de lo contrario.
      * @return True si es valido, False si no lo es.
      */
-//    public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
-//        if (esTurnoAI) {
-//            Casilla ficha = board[posI.getY()][posI.getX()];
-//            if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
-//                return
-//            }
-//        }
-//        
-//        
-//        return true;
-//    }
+    public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
+        if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false;
+        
+        Casilla ficha = board[posI.getY()][posI.getX()];
+        
+        //si no es mi ficha o no va en la direccion adecuada
+        if (esTurnoAI) {
+            if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
+                return false;
+            } else {
+                if(ficha == Casilla.WHITE && posI.getY()>=posF.getY()){
+                    return false;
+                }
+            }
+        } else {
+            if(ficha == Casilla.WHITE || ficha == Casilla.WHITEQUEEN){
+                return false;
+            } else {
+                if(ficha == Casilla.BLACK && posI.getY()<=posF.getY()){
+                    return false;
+                }
+            }
+        }
+        
+        if(posF.getY() == posI.getY() || posF.getX()==posI.getX()){
+            return false;
+        }
+        
+        //validar si se movio o si comio
+        int diffY = Math.abs(posF.getY()-posI.getY());
+        int diffX = Math.abs(posF.getX()-posI.getX());
+        if(diffY > 2){
+            return false;
+        } else {
+            if (diffY == 2) { //si comio
+                if (diffX != 2 || diffY != 2) {
+                    return false;
+                }
+                
+                int dirX = posF.getX()-posI.getX();
+                int dirY = posF.getY()-posI.getY();
+                Casilla mid;
+                if (dirX>0){//derecha
+                    if(dirY<0){//derecha-arriba
+                        mid = board[posI.getY()-1][posI.getX()+1];
+                    } else { //derecha-abajo
+                        mid = board[posI.getY()+1][posI.getX()+1];
+                    }
+                } else {//izq
+                    if(dirY<0){//izq-arriba
+                        mid = board[posI.getY()+1][posI.getX()+1];
+                    } else { //izq-abajo
+                        mid = board[posI.getY()-1][posI.getX()-1];
+                    }
+                }
+                if (mid == board[posI.getY()][posI.getX()]) return false;
+                if(mid == Casilla.EMPTY) return false;
+            } else {//si movio
+                if (diffX != 1 || diffY != 1) {
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
     
     /**
      * Metodo para evalura heuristicamente el estado del tablero.
