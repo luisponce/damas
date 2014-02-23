@@ -36,10 +36,10 @@ import javax.swing.JPanel;
             
             if (!selected) {
                 selected = true;
-                selectedPos = new Pos(p.valorX, p.valorY);
+                selectedPos = new Pos(p.getValorX(), p.getValorY());
             } else {
-                if (p.valorX != selectedPos.getX() || p.valorY != selectedPos.getY()) {
-                    GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.valorX, p.valorY));
+                if (p.getValorX() != selectedPos.getX() || p.getValorY() != selectedPos.getY()) {
+                    GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.getValorX(), p.getValorY()));
                 }
                 selected = false;
                 selectedPos = null;
