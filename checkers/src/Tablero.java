@@ -1,4 +1,3 @@
-
 /**
  * Clase para representar un tablero de damas.
  */
@@ -68,17 +67,17 @@ public class Tablero {
      * @param esTurnoAI True si es el turno de la AI, false de lo contrario.
      * @return True si es valido, False si no lo es.
      */
-    public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
-        if (esTurnoAI) {
-            Casilla ficha = board[posI.getY()][posI.getX()];
-            if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
-                return
-            }
-        }
-        
-        
-        return true;
-    }
+//    public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
+//        if (esTurnoAI) {
+//            Casilla ficha = board[posI.getY()][posI.getX()];
+//            if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
+//                return
+//            }
+//        }
+//        
+//        
+//        return true;
+//    }
     
     /**
      * Metodo para evalura heuristicamente el estado del tablero.

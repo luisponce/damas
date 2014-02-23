@@ -10,39 +10,46 @@ import javax.swing.JPanel;
             super();  
             this.interfaz = interfaz;
             
-            for (int i = 0; i<8; i++) {
-                for (int j = 0; j<8; j++) {
+            for (int i = 0; i<8; i++) { // le crea a cada panel de la matriz de GUI el mouseListener y lo añade a pnlTablero para que se vea
+                for (int j = i%2; j<8; j+=2) {
                     interfaz.panel[i][j].addMouseListener(this);
-                  interfaz.pnlTablero.add(interfaz.panel[i][j]);
+                    interfaz.pnlTablero.add(interfaz.panel[i][j]);
                }
             }
         }
         
-         @Override
-            public void mouseClicked(MouseEvent evento) {
-               int x = evento.getX();
-               int y = evento.getY();
-               System.out.println("undio "+ x + "  "+ y);
-               System.out.println("Este es el clicked");
-            }
+        @Override
+        public void mouseClicked(MouseEvent evento) { //Metodo que se necesita para el MouseListener
+//            Object panelUndido = evento.getSource();
+//            int enX = evento.getXOnScreen();
+//            int x = evento.getX(); //dice el valor x donde se undio
+//            int y = evento.getY();//dice el valor y donde se undio
+//            System.out.println("undio "+ x + "  "+ y);
+//            System.out.println("Este es el clicked");
+            
+            Panel p = (Panel) evento.getSource();
+            System.out.println(p.getValorArreglo());
+            
+        }
         
-        @Override
-        public void mouseExited(MouseEvent evento) {
-            System.out.println("Este es el Exited");
+        @Override        
+        public void mouseExited(MouseEvent evento) { //Se requiere para el MouseL
+//            System.out.println("Este es el Exited");
         }
         @Override
-        public void mousePressed(MouseEvent evento) {
-            System.out.println("Este es el Pressed");
+        public void mousePressed(MouseEvent evento) { //Se requiere para el MouseL
+            //evento.paramString();
+//            System.out.println("Este es el Pressed");          
             
         }
         @Override
-        public void mouseEntered(MouseEvent evento) {
-            System.out.println("Este es el Entered");
+        public void mouseEntered(MouseEvent evento) {//Se requiere para el MouseL
+//            System.out.println("Este es el Entered");
             
         }
         @Override
-        public void mouseReleased(MouseEvent evento) {
-            System.out.println("Este es e Released");
+        public void mouseReleased(MouseEvent evento) {//Se require para el MouseL
+//            System.out.println("Este es e Released");
             
         }
     }
