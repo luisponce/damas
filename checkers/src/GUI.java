@@ -206,6 +206,7 @@ public class GUI extends javax.swing.JFrame {
     
     private void crearMatriz() { //Metodo para crear los paneles y guardarlos con sus caracteristicas en la matriz de GUI
        pnlTablero.setLayout(null);
+       pnlTablero.setBackground(Color.black);
         int dimensionX = pnlTablero.getWidth();
         int dimensionY = pnlTablero.getHeight();
         float sizeX = dimensionX/8;
@@ -216,11 +217,11 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 1; j<=8; j++) {
                 Panel jPanelNew = new Panel(); // "panel" tipo Panel para guardar en la matriz GUI
                 if ((i+j) % 2 != 0) {                    
-                    jPanelNew.setBackground(Color.white);             
+                    jPanelNew.setBackground(Color.black);             
                     jPanelNew.setEnabled(false);
                     jPanelNew.setBounds((i-1)*tamañoX,(j-1)*tamañoY,tamañoX,tamañoY);//tamañoX = tamaño horizontal; tamañoY = tamaño vertical                
                 } else {
-                    jPanelNew.setBackground(Color.black);
+                    jPanelNew.setBackground(Color.white);
                     if (j<=3) { //Si es de las primeras 3 filas pone ficha blanca
                         jPanelNew.changeImg(Casilla.WHITE);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
