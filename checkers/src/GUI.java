@@ -215,17 +215,11 @@ public class GUI extends javax.swing.JFrame {
                 } else {
                     jPanelNew.setBackground(Color.black);
                     if (j<=3) { //Si es de las primeras 3 filas pone ficha blanca
-                        ImageIcon imagen = new ImageIcon ("blanca.jpg");
-                        JLabel background  = new JLabel();            
-                        background.setIcon(imagen);
+                        jPanelNew.changeImg(Casilla.WHITE);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-                        jPanelNew.add(background);    
                     } else if (j>=6) { // si es de las ultimas 3 filas pone ficha negra
-                        ImageIcon imagen = new ImageIcon ("negra.jpg");
-                        JLabel background  = new JLabel();            
-                        background.setIcon(imagen);
-                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
-                        jPanelNew.add(background);                         
+                        jPanelNew.changeImg(Casilla.BLACK);
+                        jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);                        
                     }else { //Si no va con ficha
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                     }

@@ -18,13 +18,13 @@ public class Panel extends JPanel{
         JLabel background;
         switch (target){
             case BLACK:
-                imagen = new ImageIcon ("blanca.jpg");
+                imagen = new ImageIcon ("negra.jpg");
                 background  = new JLabel();            
                 background.setIcon(imagen);
                 add(background); 
                 break;
             case WHITE:
-                imagen = new ImageIcon ("negra.jpg");
+                imagen = new ImageIcon ("blanca.jpg");
                 background  = new JLabel();            
                 background.setIcon(imagen);
                 add(background);
