@@ -13,11 +13,14 @@ public class GUI extends javax.swing.JFrame {
     
     Panel panel[][] = new Panel [8][8];
     private ManejadorClicks manejadorClicks;
+    private GameMaster gm;
+
     public GUI() {
         initComponents();
         crearMatriz();   
         manejadorClicks = new ManejadorClicks(this);
-        
+        gm = GameMaster.getInstance();
+        gm.IniciarJuego(gm.getGUI());        
     }
 
     /**
@@ -156,6 +159,7 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
+       
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -180,20 +184,22 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         //DEBUG!!!----------------
-//        Tablero t = new Tablero();
-//        t.print();
-//        t.Mover(new Pos(1, 5), new Pos(0, 4));
+        //Tablero t = new Tablero();
+      // t.print();
+       //t.Mover(new Pos(1, 5), new Pos(0, 4));
 //        t.print();
         //END DEBUG---------------
         
-        GameMaster gm = GameMaster.getInstance();
+        //GameMaster gm = GameMaster.getInstance();
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
+               // GameMaster.getInstance().IniciarJuego();
             }
         });
+        
         
     }
     
@@ -232,21 +238,33 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    public void actualizarLog(String str){
+    public void actualizarLog(String str){ //Agrega el moviemiento realizado
         txtHistorial.setText(str);
     }
     
     public void actualizarBoard(Tablero newBoard){
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+               panel[i][j].changeImg(newBoard.getBoard(i,j));
+               // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));  
                 
+            }
+        }
+        mostrarActualizado();
+    }
+    
+    public void mostrarActualizado() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                pnlTablero.add(panel[i][j]);
             }
         }
     }
     
-    public void agregarNotificacion(String str){
+    public void agregarNotificacion(String str){ //Agrega la nueva notificacion
         txtNotificaciones.setText(txtNotificaciones.getText() + str + "\n");
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -261,8 +279,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextArea txtHistorial;
     private javax.swing.JTextArea txtNotificaciones;
     // End of variables declaration//GEN-END:variables
-    
-    
+
     }
 
 

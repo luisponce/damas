@@ -46,11 +46,18 @@ public class GameMaster {
         esTurnoAI = false;
         log = "";
         this.gui = gui;
-        gui.agregarNotificacion("Partida Iniciada");
-        gui.agregarNotificacion("Turno del Jugador1");
+//        gui.agregarNotificacion("Partida Iniciada");
+  //      gui.agregarNotificacion("Turno del Jugador1");
     }
     
     public void EndLogR(){
         corono=true;
+    }
+    
+    public Tablero getBoard() {
+        return board;
+    }
+    public GUI getGUI() {
+        return gui;
     }
 }

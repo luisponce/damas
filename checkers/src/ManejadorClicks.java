@@ -8,8 +8,7 @@ import javax.swing.JPanel;
         @SuppressWarnings("LeakingThisInConstructor")
         public ManejadorClicks(GUI interfaz) {            
             super();  
-            this.interfaz = interfaz;
-            
+            this.interfaz = interfaz;            
             for (int i = 0; i<8; i++) { // le crea a cada panel de la matriz de GUI el mouseListener y lo añade a pnlTablero para que se vea
                 for (int j = i%2; j<8; j+=2) {
                     interfaz.panel[i][j].addMouseListener(this);
@@ -28,8 +27,7 @@ import javax.swing.JPanel;
 //            System.out.println("Este es el clicked");
             
             Panel p = (Panel) evento.getSource();
-            System.out.println(p.getValorArreglo());
-            
+            System.out.println(p.getValorArreglo());            
         }
         
         @Override        
@@ -49,7 +47,6 @@ import javax.swing.JPanel;
         }
         @Override
         public void mouseReleased(MouseEvent evento) {//Se require para el MouseL
-//            System.out.println("Este es e Released");
-            
+//            System.out.println("Este es e Released");            
         }
     }

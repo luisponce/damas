@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 
 /**
  * Clase tipo de matriz GUI
- * @author ALICIA PRATS
  */
 
 public class Panel extends JPanel{
@@ -29,6 +28,20 @@ public class Panel extends JPanel{
                 background.setIcon(imagen);
                 add(background);
                 break;
+                /*
+            case BLACKQUEEN:
+                imagen = new ImageIcon("");
+                background  = new JLabel();            
+                background.setIcon(imagen);
+                add(background);
+                break;
+            case WHITEQUEEN: 
+                imagen = new ImageIcon("");
+                background  = new JLabel();            
+                background.setIcon(imagen);
+                add(background);
+                break;
+                */
             default:
                 break;
         }
