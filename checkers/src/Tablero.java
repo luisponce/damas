@@ -1,3 +1,4 @@
+
 /**
  * Clase para representar un tablero de damas.
  */
@@ -59,7 +60,9 @@ public class Tablero {
         if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
             int dirX = posF.getX()-posI.getX();
             int dirY = posF.getY()-posI.getY();
-            board[posI.getY()+dirY][posI.getX()+dirX] = Casilla.EMPTY;
+            board[posI.getY()][posI.getX()] = Casilla.EMPTY;
+            //board[posF.getY()-posI.getY()][posF.getX()-posI.getX()] = Casilla.EMPTY; // la que se comio
+            //board[posI.getY()+dirY][posI.getX()+dirX] = Casilla.EMPTY;
             str = "C " + str + " ";
             GameMaster.getInstance().AddLog(str);
         } else {
@@ -78,23 +81,20 @@ public class Tablero {
      * @return True si es valido, False si no lo es.
      */
     public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
-        if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false;
-        
-        Casilla ficha = board[posI.getY()][posI.getX()];
-        
-        if (ficha==Casilla.EMPTY) return false;
-            
+        if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
+        Casilla ficha = board[posI.getY()][posI.getX()];        
+        if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
             
         //si no es mi ficha o no va en la direccion adecuada
         if (esTurnoAI) {
             if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
                 return false;
             } else {
-                if(ficha == Casilla.WHITE && posI.getY()>=posF.getY()){
+                if(ficha == Casilla.WHITE && posI.getY()>=posF.getY()){ 
                     return false;
                 }
             }
-        } else {
+        } else { // Si es el turno de jugador1
             if(ficha == Casilla.WHITE || ficha == Casilla.WHITEQUEEN){
                 return false;
             } else {
@@ -102,23 +102,20 @@ public class Tablero {
                     return false;
                 }
             }
-        }
-        
+        }        
         if(posF.getY() == posI.getY() || posF.getX()==posI.getX()){
             return false;
-        }
-        
+        }        
         //validar si se movio o si comio
         int diffY = Math.abs(posF.getY()-posI.getY());
         int diffX = Math.abs(posF.getX()-posI.getX());
-        if(diffY > 2){
+        if(diffY > 2){ 
             return false;
         } else {
             if (diffY == 2) { //si comio
-                if (diffX != 2 || diffY != 2) {
+                if (diffX != 2 || diffY != 2) { //tiene que ser siempre 2
                     return false;
-                }
-                
+                }                
                 int dirX = posF.getX()-posI.getX();
                 int dirY = posF.getY()-posI.getY();
                 Casilla mid;
@@ -130,33 +127,45 @@ public class Tablero {
                     }
                 } else {//izq
                     if(dirY<0){//izq-arriba
-                        mid = board[posI.getY()+1][posI.getX()-1];
-                    } else { //izq-abajo
                         mid = board[posI.getY()-1][posI.getX()-1];
+                    } else { //izq-abajo
+                        mid = board[posI.getY()+1][posI.getX()-1];
                     }
                 }
                 if (mid == board[posI.getY()][posI.getX()]) return false;
-                if(mid == Casilla.EMPTY) return false;
+                if(mid == Casilla.EMPTY) {
+                  return false; // si "comio" vacio   
+                } else { //borra la que se comio
+                    if (dirX>0){//derecha
+                        if(dirY<0){//derecha-arriba
+                            board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
+                        } else { //derecha-abajo
+                            board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
+                        }
+                    } else {//izquierda
+                        if(dirY<0){//izquierda-arriba
+                            board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
+                        } else { //izquierda-abajo
+                            board[posI.getY()-1][posI.getX()-1] = Casilla.EMPTY;
+                        }
+                    }
+                }                  
             } else {//si movio
                 if (diffX != 1 || diffY != 1) {
                     return false;
                 }
             }
-        }
-        
+        }        
         return true;
     }
     
+
     /**
      * Metodo para evalura heuristicamente el estado del tablero.
      * 
      * @return Un numero positivo si la AI gana, negativo si el jugador gana.
      */
     public int EvaluarEstado() {
-        int ans = 0;
-        for (int i = 0; i < 8; i++) {
-            
-        }
         
         return 0;
     }
@@ -177,3 +186,4 @@ public class Tablero {
         return board[i][j];
     }
 }
+

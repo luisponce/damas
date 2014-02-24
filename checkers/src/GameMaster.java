@@ -1,8 +1,4 @@
 
-
-/**
- * 
- */
 public class GameMaster {
     private static GameMaster instance = null;
     private Tablero board;
@@ -54,6 +50,8 @@ public class GameMaster {
     public void realizarMovimiento(Pos posI, Pos PosF){
         if(board.Validar(posI, PosF, esTurnoAI)){
             board.Mover(posI, PosF);
+            Casilla bo = board.getBoard( posI.getY(), PosF.getX());
+            bo = Casilla.EMPTY;
         } else {
             gui.agregarNotificacion("Movimiento invalido");
         }
@@ -66,6 +64,7 @@ public class GameMaster {
     public Tablero getBoard() {
         return board;
     }
+    
     public GUI getGUI() {
         return gui;
     }
