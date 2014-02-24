@@ -52,6 +52,8 @@ public class GameMaster {
             board.Mover(posI, PosF);
             Casilla bo = board.getBoard( posI.getY(), PosF.getX());
             bo = Casilla.EMPTY;
+            
+            System.out.println(board.EvaluarEstado());
         } else {
             gui.agregarNotificacion("Movimiento invalido");
         }

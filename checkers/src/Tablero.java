@@ -166,8 +166,45 @@ public class Tablero {
      * @return Un numero positivo si la AI gana, negativo si el jugador gana.
      */
     public int EvaluarEstado() {
+        int ans = 0;
         
-        return 0;
+        //sumar los bordes de *4
+        for (int i = 0; i < 8; i++) { //verticales
+            ans+= board[i][0].getVal()*4;
+            ans+= board[i][7].getVal()*4;
+        }
+        for (int i = 1; i < 7; i++) {//horizontales
+            ans+= board[0][i].getVal()*4;
+            ans+= board[7][i].getVal()*4;
+        }
+        
+        //sumar los bordes de *3
+        for (int i = 1; i < 7; i++) {//verticales
+            ans+= board[i][1].getVal()*3;
+            ans+= board[i][6].getVal()*3;
+        }
+        for (int i = 2; i < 6; i++) {//horizontales
+            ans+= board[1][i].getVal()*3;
+            ans+= board[6][i].getVal()*3;
+        }
+        
+        //sumar los bordes de *2
+        for (int i = 2; i < 6; i++) {//verticales
+            ans+= board[i][2].getVal()*2;
+            ans+= board[i][5].getVal()*2;
+        }
+        for (int i = 3; i < 5; i++) {//horizontales
+            ans+= board[2][i].getVal()*2;
+            ans+= board[5][i].getVal()*2;
+        }
+        
+        //sumar el centro con *1
+        for (int i = 3; i < 5; i++) {
+            ans+= board[i][3].getVal();
+            ans+= board[i][4].getVal();
+        }
+        
+        return ans;
     }
     
     

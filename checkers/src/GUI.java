@@ -20,7 +20,7 @@ public class GUI extends javax.swing.JFrame {
         
         gm.IniciarJuego(this);
         
-        
+        System.out.println(gm.getBoard().EvaluarEstado());
     }
 
     /**
@@ -255,9 +255,7 @@ public class GUI extends javax.swing.JFrame {
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
                 }                
             }
-            System.out.println("");
         }
-        System.out.println("");
     }
     
     public void agregarNotificacion(String str){ //Agrega la nueva notificacion
