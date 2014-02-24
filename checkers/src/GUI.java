@@ -5,7 +5,7 @@ import java.awt.Image;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.vecmath.GMatrix;
+//import javax.vecmath.GMatrix;
 //import java.swing.ImageIcon;
 /**
  * Interfaz Grafica
@@ -212,7 +212,7 @@ public class GUI extends javax.swing.JFrame {
         float sizeY = dimensionY/8;
         int tamañoX = (int)sizeX;
         int tamañoY = (int)sizeY;
-        for (int i = 1; i<=8; i++) {
+        for (int i = 1; i<=8; i++) { 
             for (int j = 1; j<=8; j++) {
                 Panel jPanelNew = new Panel(); // "panel" tipo Panel para guardar en la matriz GUI
                 if ((i+j) % 2 != 0) {                    
@@ -232,7 +232,7 @@ public class GUI extends javax.swing.JFrame {
                     }
                     jPanelNew.setValorX((i-1)); //guarda el valor x donde lo ubico
                     jPanelNew.setValorY((j-1)); // guarda el valor y donde lo ubico
-                    panel[i-1][j-1] = jPanelNew; //guarda el "panel" en la matriz            
+                    panel[j-1][i-1] = jPanelNew; //guarda el "panel" en la matriz            
                 }
             }
         }
@@ -244,10 +244,12 @@ public class GUI extends javax.swing.JFrame {
     
     public void actualizarBoard(Tablero newBoard){
         for (int i = 0; i < 8; i++) {
-            for (int j = i%2; j < 8; j+=2) {
-                System.out.print(newBoard.getBoard(i, j));
-                panel[i][j].changeImg(newBoard.getBoard(i,j));
-               // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));  
+            for (int j = 0; j < 8; j++) {
+                if ((i+j)%2== 0) {
+                   System.out.print(newBoard.getBoard(i, j));
+                panel[i][j].changeImg(newBoard.getBoard(i,j)); 
+               // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
+                }                
             }
             System.out.println("");
         }
@@ -257,8 +259,11 @@ public class GUI extends javax.swing.JFrame {
     
     public void mostrarActualizado() {
         for (int i = 0; i < 8; i++) {
-            for (int j = i%2; j < 8; j+=2) {
-                pnlTablero.add(panel[i][j]);
+            for (int j = 0; j < 8; j++) {
+                if ((i+j)%2==0) {
+                   pnlTablero.add(panel[i][j]); 
+                }
+                
             }
         }
     }
