@@ -125,8 +125,8 @@ public class Tablero {
                         mid = board[posI.getY()+1][posI.getX()+1];
                     }
                 } else {//izq
-                    if(dirY<0){//izq-arriba 
-                        mid = board[posI.getY()-1][posI.getX()-1]; //poner con +
+                    if(dirY<0){//izq-arriba
+                        mid = board[posI.getY()-1][posI.getX()-1];
                     } else { //izq-abajo
                         mid = board[posI.getY()+1][posI.getX()-1];
                     }
