@@ -54,7 +54,7 @@ public class Tablero {
             int dirX = posF.getX()-posI.getX();
             int dirY = posF.getY()-posI.getY();
             board[posI.getY()+dirY][posI.getX()+dirX] = Casilla.EMPTY;
-            str = "C " + str;
+            str = "C " + str + " ";
             GameMaster.getInstance().AddLog(str);
         } else {
             GameMaster.getInstance().AddLog(str);

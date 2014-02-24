@@ -1,11 +1,6 @@
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Image;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.vecmath.GMatrix;
 //import java.swing.ImageIcon;
 /**
  * Interfaz Grafica

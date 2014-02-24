@@ -20,12 +20,12 @@ public class GameMaster {
     } 
     
     private GameMaster(){
-        
+        player2 = new AI();
     }
     
     public void AddLog(String play){
         log += play;
-        
+        gui.actualizarLog(log);
     }
     
     public void TerminarTurno(){
@@ -69,4 +69,13 @@ public class GameMaster {
     public GUI getGUI() {
         return gui;
     }
+
+    public void setBoard(Tablero board) {
+        this.board = board;
+    }
+
+    public boolean isEsTurnoAI() {
+        return esTurnoAI;
+    }
+    
 }

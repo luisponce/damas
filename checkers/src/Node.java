@@ -41,4 +41,10 @@ public class Node {
             return bestNode;
         }
     }
+
+    public Tablero getBoard() {
+        return board;
+    }
+    
+    
 }
