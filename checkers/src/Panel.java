@@ -115,7 +115,7 @@ public class Panel extends JPanel{
     
     
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) { // borde al seleccionado
         super.paintComponent(g);
         g.drawImage(imagen, 0, 0, getSize().width, getSize().height, null);
         if(selected){
