@@ -36,11 +36,13 @@ import javax.swing.JPanel;
             
             if (!selected) {
                 selected = true;
+                p.setSelected(true);
                 selectedPos = new Pos(p.getValorX(), p.getValorY()); 
             } else {
                 if (p.getValorX() != selectedPos.getX() || p.getValorY() != selectedPos.getY()) {
                     GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.getValorX(), p.getValorY()));
                 }
+                GameMaster.getInstance().getGUI().panel[selectedPos.getY()][selectedPos.getX()].setSelected(false);
                 selected = false;
                 selectedPos = null;
             }

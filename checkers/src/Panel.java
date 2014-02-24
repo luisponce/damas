@@ -1,11 +1,14 @@
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  * Clase tipo de matriz GUI
@@ -16,6 +19,7 @@ public class Panel extends JPanel{
     private int valorY; // esta por el momento que indica la posicion en el panel y
     private Casilla ficha;
     private BufferedImage imagen;
+    private boolean selected = false;
     
     private static BufferedImage BLANCA_IMAGE;
     private static BufferedImage NEGRA_IMAGE;
@@ -42,6 +46,7 @@ public class Panel extends JPanel{
                 imagen = BLANCA_IMAGE;
                 break;
             default:
+                imagen = null;
                 break;
         }
         
@@ -93,11 +98,22 @@ public class Panel extends JPanel{
     public String getValorArreglo() {
         return "" + getValorX() + "" + getValorY();
     }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        this.repaint();
+    }
+    
     
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(imagen, 0, 0, getSize().width, getSize().height, null);            
+        g.drawImage(imagen, 0, 0, getSize().width, getSize().height, null);
+        if(selected){
+            setBorder(BorderFactory.createLineBorder(Color.green));
+        } else {
+            setBorder(null);
+        }
     }
     
 }

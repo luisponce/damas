@@ -19,6 +19,8 @@ public class GUI extends javax.swing.JFrame {
         gm = GameMaster.getInstance();
         
         gm.IniciarJuego(this);
+        
+        
     }
 
     /**
@@ -232,6 +234,7 @@ public class GUI extends javax.swing.JFrame {
                 }
             }
         }
+        
     }
     
     public void actualizarLog(String str){ //Agrega el moviemiento realizado
@@ -240,17 +243,25 @@ public class GUI extends javax.swing.JFrame {
     
     public void actualizarBoard(Tablero newBoard){
         for (int i = 0; i < 8; i++) {
+            System.out.println(newBoard.getBoard(i, 0));
+        }
+        
+        pnlTablero.repaint();
+        
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                System.out.print("_");
                 if ((i+j)%2== 0) {
-                   System.out.print(newBoard.getBoard(i, j));
-                panel[i][j].changeImg(newBoard.getBoard(i,j)); 
+                    System.out.print(newBoard.getBoard(i, j));
+                    panel[i][j].changeImg(newBoard.getBoard(i,j)); 
+//                    panel[i][j].repaint();
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
                 }                
             }
             System.out.println("");
         }
         System.out.println("");
-        mostrarActualizado();
+//        mostrarActualizado();
     }
     
     public void mostrarActualizado() {
