@@ -238,6 +238,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public void actualizarLog(String str){ //Agrega el moviemiento realizado
+        
         txtHistorial.setText(str);
     }
     
