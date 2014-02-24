@@ -243,17 +243,13 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public void actualizarBoard(Tablero newBoard){
-        for (int i = 0; i < 8; i++) {
-            System.out.println(newBoard.getBoard(i, 0));
-        }
         
         pnlTablero.repaint();
         
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.print("_");
                 if ((i+j)%2== 0) {
-                    System.out.print(newBoard.getBoard(i, j));
+//                    System.out.print(newBoard.getBoard(i, j));
                     panel[i][j].changeImg(newBoard.getBoard(i,j)); 
 //                    panel[i][j].repaint();
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
@@ -262,18 +258,6 @@ public class GUI extends javax.swing.JFrame {
             System.out.println("");
         }
         System.out.println("");
-//        mostrarActualizado();
-    }
-    
-    public void mostrarActualizado() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((i+j)%2==0) {
-                   pnlTablero.add(panel[i][j]); 
-                }
-                
-            }
-        }
     }
     
     public void agregarNotificacion(String str){ //Agrega la nueva notificacion
