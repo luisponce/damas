@@ -49,7 +49,13 @@ public class Tablero {
         
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
         
-        String str = posI.toString() + " " + posF.toString();
+        String pI = posI.toString();
+        String pF = posF.toString();
+        int pi = Integer.parseInt(pI) + 11;
+        int pf = Integer.parseInt(pF) + 11;
+        pI = ""+pi;
+        pF = ""+pf;
+        String str = pI + " " + pF;
         if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
             int dirX = posF.getX()-posI.getX();
             int dirY = posF.getY()-posI.getY();

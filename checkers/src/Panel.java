@@ -19,12 +19,17 @@ public class Panel extends JPanel{
     
     private static BufferedImage BLANCA_IMAGE;
     private static BufferedImage NEGRA_IMAGE;
+    private static BufferedImage BLANCA_QUEEN;
+    private static BufferedImage NEGRA_QUEEN;
+    private static BufferedImage EMPTY;
     
     public Panel() {
         if(BLANCA_IMAGE == null || NEGRA_IMAGE == null){
             try {                
                 BLANCA_IMAGE = ImageIO.read(new File("blanca.jpg"));
                 NEGRA_IMAGE = ImageIO.read(new File("negra.jpg"));
+                //BLANCA_QUEEN = ImageIO.read(new File(""));
+                //NEGRA_QUEEN = ImageIO.read(new File("")):
              } catch (Exception ex) {
                   
              }
@@ -41,6 +46,10 @@ public class Panel extends JPanel{
             case WHITE:
                 imagen = BLANCA_IMAGE;
                 break;
+            case BLACKQUEEN:
+                imagen = NEGRA_QUEEN;
+            case WHITEQUEEN:
+                imagen = BLANCA_QUEEN;
             default:
                 break;
         }
