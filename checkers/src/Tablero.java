@@ -135,7 +135,7 @@ public class Tablero {
                 if (mid == board[posI.getY()][posI.getX()]) return false;
                 if(mid == Casilla.EMPTY) {
                   return false; // si "comio" vacio   
-                } else { //borra la que se comio
+                } else { //borra la que se comio y la resta
                     if (dirX>0){//derecha
                         if(dirY<0){//derecha-arriba
                             board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
@@ -148,6 +148,13 @@ public class Tablero {
                         } else { //izquierda-abajo
                             board[posI.getY()+1][posI.getX()-1] = Casilla.EMPTY;
                         }
+                    }
+                    if (esTurnoAI) {
+                        GameMaster.getInstance().setBlack(); 
+                        if (GameMaster.getInstance().getBlack() == 0) System.out.println("Gano Blanco");
+                    } else {
+                        GameMaster.getInstance().setWhite();
+                        if (GameMaster.getInstance().getWhite() == 0) System.out.println("Gano Negro");
                     }
                 }                  
             } else {//si movio

@@ -7,6 +7,8 @@ public class GameMaster {
     private boolean corono;
     private boolean esTurnoAI;
     private GUI gui;
+    private int white = 12;
+    private int black = 12;
     
     public static GameMaster getInstance(){
         if (instance==null) {
@@ -79,4 +81,19 @@ public class GameMaster {
         return esTurnoAI;
     }
     
+    public void setBlack() {
+        black = black - 1;
+    }
+    
+    public void setWhite() {
+        white = white - 1;
+    }
+    
+    public int getBlack() {
+        return black;
+    }
+    
+    public int getWhite() {
+        return white;
+    }    
 }
