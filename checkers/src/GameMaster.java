@@ -50,8 +50,8 @@ public class GameMaster {
     public void realizarMovimiento(Pos posI, Pos PosF){
         if(board.Validar(posI, PosF, esTurnoAI)){
             board.Mover(posI, PosF);
-            Casilla bo = board.getBoard( posI.getY(), PosF.getX());
-            bo = Casilla.EMPTY;
+            //Casilla bo = board.getBoard( posI.getY(), PosF.getX());
+//            bo = Casilla.EMPTY;
             
             System.out.println(board.EvaluarEstado());
         } else {

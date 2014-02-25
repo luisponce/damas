@@ -10,6 +10,12 @@ public class Node {
     private Tablero board;
     private Node[] hijos;
     private Node padre;
+
+    public Node(Tablero board) {
+        this.board = board;
+    }
+    
+    
     
     public Node Minimax(Tablero board, int lvl, boolean esTurnoAI){
         if (lvl==0 || this.hijos.length == 0){
@@ -46,5 +52,8 @@ public class Node {
         return board;
     }
     
-    
+    public void ConstrirArbol(int lvl){
+        
+        
+    }
 }

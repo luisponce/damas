@@ -144,9 +144,9 @@ public class Tablero {
                         }
                     } else {//izquierda
                         if(dirY<0){//izquierda-arriba
-                            board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
-                        } else { //izquierda-abajo
                             board[posI.getY()-1][posI.getX()-1] = Casilla.EMPTY;
+                        } else { //izquierda-abajo
+                            board[posI.getY()+1][posI.getX()-1] = Casilla.EMPTY;
                         }
                     }
                 }                  

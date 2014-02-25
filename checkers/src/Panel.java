@@ -32,8 +32,8 @@ public class Panel extends JPanel{
             try {                
                 BLANCA_IMAGE = ImageIO.read(new File("blanca.jpg"));
                 NEGRA_IMAGE = ImageIO.read(new File("negra.jpg"));
-                //BLANCA_QUEEN = ImageIO.read(new File(""));
-                //NEGRA_QUEEN = ImageIO.read(new File("")):
+                BLANCA_QUEEN = ImageIO.read(new File("blancaCoronada.jpg"));
+                NEGRA_QUEEN = ImageIO.read(new File("negraCoronada.jpg"));
              } catch (Exception ex) {
                   
              }
@@ -52,8 +52,10 @@ public class Panel extends JPanel{
                 break;
             case BLACKQUEEN:
                 imagen = NEGRA_QUEEN;
+                break;
             case WHITEQUEEN:
                 imagen = BLANCA_QUEEN;
+                break;
             default:
                 imagen = null;
                 break;
