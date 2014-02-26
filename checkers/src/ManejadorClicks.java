@@ -45,6 +45,7 @@ import javax.swing.JPanel;
                 }
                 selected = false;
                 selectedPos = null;
+                p.setSelected(false);
             }
             
 //            System.out.println(p.getValorArreglo());

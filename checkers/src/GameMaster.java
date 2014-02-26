@@ -28,7 +28,7 @@ public class GameMaster {
     
     public void TerminarTurno(){
         if (corono) {
-            AddLog("R");
+            AddLog(" R");
         }
         AddLog("\n");
         
@@ -59,6 +59,7 @@ public class GameMaster {
         } else {
             gui.agregarNotificacion("Movimiento invalido");
         }
+        gui.actualizarBoard(board);
     }
     
     public void EndLogR(){
