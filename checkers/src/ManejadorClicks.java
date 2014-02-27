@@ -11,7 +11,6 @@ import javax.swing.JPanel;
         @SuppressWarnings("LeakingThisInConstructor")
         public ManejadorClicks(GUI interfaz) {            
             super();  
-
             this.interfaz = interfaz;
             this.selected = false;
             
@@ -25,15 +24,7 @@ import javax.swing.JPanel;
         
         @Override
         public void mouseClicked(MouseEvent evento) { //Metodo que se necesita para el MouseListener
-//            Object panelUndido = evento.getSource();
-//            int enX = evento.getXOnScreen();
-//            int x = evento.getX(); //dice el valor x donde se undio
-//            int y = evento.getY();//dice el valor y donde se undio
-//            System.out.println("undio "+ x + "  "+ y);
-//            System.out.println("Este es el clicked");
-            
-            Panel p = (Panel) evento.getSource();
-            
+            Panel p = (Panel) evento.getSource();            
             if (!selected) {
                 selected = true;
                 p.setSelected(true);
@@ -41,13 +32,18 @@ import javax.swing.JPanel;
             } else {
                 GameMaster.getInstance().getGUI().panel[selectedPos.getY()][selectedPos.getX()].setSelected(false);
                 if (p.getValorX() != selectedPos.getX() || p.getValorY() != selectedPos.getY()) {
-                    GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.getValorX(), p.getValorY()));
+                    if (GameMaster.getInstance().getIteracion() == 0) { //quitar if
+                        GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.getValorX(), p.getValorY()));
+                    } else {
+                            Pos nueva = new Pos (p.getX(), p.getY());
+                        if (GameMaster.getInstance().getUltimaPos().getX() == selectedPos.getX() && GameMaster.getInstance().getUltimaPos().getY() == selectedPos.getY() ) {
+                             GameMaster.getInstance().realizarMovimientoComido(selectedPos, new Pos(p.getValorX(), p.getValorY()));
+                        } else System.out.println("no es la misma ficha ");                   
+                }
                 }
                 selected = false;
                 selectedPos = null;
             }
-            
-//            System.out.println(p.getValorArreglo());
         }
         
         @Override        

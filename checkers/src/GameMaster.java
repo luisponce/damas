@@ -9,6 +9,8 @@ public class GameMaster {
     private GUI gui;
     private int white = 12;
     private int black = 12;
+    private Pos ultimaPos;
+    private int iteracion = 0;
     
     public static GameMaster getInstance(){
         if (instance==null) {
@@ -49,16 +51,32 @@ public class GameMaster {
         gui.agregarNotificacion("Turno del Jugador1");
     }
     
-    public void realizarMovimiento(Pos posI, Pos PosF){
-        if(board.Validar(posI, PosF, esTurnoAI)){
-            board.Mover(posI, PosF);
-            //Casilla bo = board.getBoard( posI.getY(), PosF.getX());
-//            bo = Casilla.EMPTY;
-            
-            System.out.println(board.EvaluarEstado());
-        } else {
-            gui.agregarNotificacion("Movimiento invalido");
-        }
+    public void realizarMovimiento(Pos posI, Pos PosF){        
+            if(board.Validar(posI, PosF, esTurnoAI)){
+                        board.Mover(posI, PosF);
+                System.out.println("ultimo es: " + ultimaPos); 
+                System.out.println(board.EvaluarEstado());
+            }
+            else {
+                gui.agregarNotificacion("Movimiento invalido");
+            }
+        
+    }
+    /**
+     * Metodo para mover luego de comer ficha
+     * @param posI
+     * @param PosF 
+     */
+    public void realizarMovimientoComido(Pos posI, Pos PosF) {
+         if(board.ValidarComido(posI, PosF, esTurnoAI)){
+                        board.Mover(posI, PosF);
+                System.out.println("ultimo es: " + ultimaPos); 
+                System.out.println(board.EvaluarEstado());
+            }
+            else {
+                gui.agregarNotificacion("Movimiento invalido");
+            }
+        
     }
     
     public void EndLogR(){
@@ -96,4 +114,26 @@ public class GameMaster {
     public int getWhite() {
         return white;
     }    
+    
+    public void setIteracion() {
+        iteracion++;
+    }
+    public void setUltimaPos(Pos ultimaP) {
+        ultimaPos = ultimaP;
+    }
+    public void iteracionCero() {
+        iteracion = 0;
+    }
+    
+    public Pos getUltimaPos() {
+        return ultimaPos;
+    }
+    
+    public int getIteracion() {
+        return iteracion;
+    }
+    
+    public void ultimoNull() {
+        ultimaPos = null; 
+    }
 }
