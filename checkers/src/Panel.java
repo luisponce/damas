@@ -25,7 +25,6 @@ public class Panel extends JPanel{
     private static BufferedImage NEGRA_IMAGE;
     private static BufferedImage BLANCA_QUEEN;
     private static BufferedImage NEGRA_QUEEN;
-    private static BufferedImage EMPTY;
     
     public Panel() {
         if(BLANCA_IMAGE == null || NEGRA_IMAGE == null){

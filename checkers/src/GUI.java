@@ -256,6 +256,8 @@ public class GUI extends javax.swing.JFrame {
                 }                
             }
         }
+        
+        pnlTablero.repaint();
     }
     
     public void agregarNotificacion(String str){ //Agrega la nueva notificacion

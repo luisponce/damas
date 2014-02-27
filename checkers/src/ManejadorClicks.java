@@ -43,6 +43,7 @@ import javax.swing.JPanel;
                 }
                 selected = false;
                 selectedPos = null;
+                p.setSelected(false);
             }
         }
         

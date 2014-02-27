@@ -36,7 +36,7 @@ public class Tablero {
      * @param posF Posicion Final de la ficha.
      */
     public void Mover(Pos posI, Pos posF){
-        if(posF.getY() == 0 || posF.getY() == 8){ //si corono la ficha
+        if(posF.getY() == 0 || posF.getY() == 7){ //si corono la ficha
             if (board[posI.getY()][posI.getX()]==Casilla.BLACK) {
                 board[posF.getY()][posF.getX()]=Casilla.BLACKQUEEN;
             } else {
