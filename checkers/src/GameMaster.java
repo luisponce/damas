@@ -53,7 +53,7 @@ public class GameMaster {
     
     public void realizarMovimiento(Pos posI, Pos PosF){        
             if(board.Validar(posI, PosF, esTurnoAI)){
-                        board.Mover(posI, PosF);
+                board.Mover(posI, PosF);
                 System.out.println("ultimo es: " + ultimaPos); 
                 System.out.println(board.EvaluarEstado());
             }
@@ -70,7 +70,7 @@ public class GameMaster {
      */
     public void realizarMovimientoComido(Pos posI, Pos PosF) {
          if(board.ValidarComido(posI, PosF, esTurnoAI)){
-                        board.Mover(posI, PosF);
+                board.Mover(posI, PosF);
                 System.out.println("ultimo es: " + ultimaPos); 
                 System.out.println(board.EvaluarEstado());
             }
@@ -80,7 +80,15 @@ public class GameMaster {
          gui.actualizarBoard(board);
     }
         
-
+    //Metodo para probar los posibles movimientos de una ficha
+    public void printPosibleMoves(Pos pos){
+        System.out.println("Moves " + pos.toString() + ":");
+        Pos[] moves = board.PosiblesMovimientosFicha(board, pos.getX(), pos.getY(), esTurnoAI);
+        for (Pos pos1 : moves) {
+            System.out.print(pos1.toString() + " / ");
+        }
+        System.out.println("");
+    }
     
     public void EndLogR(){
         corono=true;

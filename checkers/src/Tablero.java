@@ -1,4 +1,9 @@
 
+import com.sun.org.apache.bcel.internal.generic.CPInstruction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  * Clase para representar un tablero de damas.
  */
@@ -50,13 +55,13 @@ public class Tablero {
         
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
         
-        String pI = posI.toString();
-        String pF = posF.toString();
-        int pi = Integer.parseInt(pI) + 11;
-        int pf = Integer.parseInt(pF) + 11;
-        pI = ""+pi;
-        pF = ""+pf;
-        String str = pI + " " + pF;
+//        String pI = posI.toString();
+//        String pF = posF.toString();
+//        int pi = Integer.parseInt(pI) + 11;
+//        int pf = Integer.parseInt(pF) + 11;
+//        pI = ""+pi;
+//        pF = ""+pf;
+        String str = posI.toString() + " " + posF.toString();
         if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
             int dirX = posF.getX()-posI.getX();
             int dirY = posF.getY()-posI.getY();
@@ -155,8 +160,6 @@ public class Tablero {
                 }
         }
         
-        
-        
         return true;
     }
     /**
@@ -168,6 +171,13 @@ public class Tablero {
      * @return True si es valido, False si no lo es.
      */
     public boolean Validar(Pos posI, Pos posF, boolean esTurnoAI){
+        if (posF.getX()>7 || posF.getX()<0 || posF.getY()>7 || posF.getY()<0) {
+            return false;
+        }
+        if (posI.getX()>7 || posI.getX()<0 || posI.getY()>7 || posI.getY()<0) {
+            return false;
+        }
+        
         if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
         Casilla ficha = board[posI.getY()][posI.getX()];        
         if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
@@ -323,5 +333,28 @@ public class Tablero {
     public Casilla getBoard(int i, int j) {
         return board[i][j];
     }
+    
+    public Pos[] PosiblesMovimientosFicha(Tablero start, int posX, int posY, boolean esTurnoAI){
+        Pos[] ans = new Pos[8];
+        int count = 0;
+        Pos curPos = new Pos(posX,posY);
+        for (int i = posX-2; i <= posX+2; i++) {
+            for (int j = posY-2; j <= posY+2; j++) {
+                Pos nextPos = new Pos(i, j);
+                if (Validar(curPos, nextPos, esTurnoAI)) {
+                    ans[count] = nextPos;
+                    count++;
+                }
+            }
+        }
+        Pos[] realAns;
+        int i;
+        for (i = 0; i < ans.length && ans[i]!=null; i++){}
+        realAns = new Pos[i];
+        System.arraycopy(ans, 0, realAns, 0, realAns.length);//copiar el arreglo ans a realAns
+        return realAns;
+    }
+    
+    
 }
 
