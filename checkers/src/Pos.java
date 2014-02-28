@@ -15,7 +15,8 @@ public class Pos {
     
     @Override
     public String toString(){
-        return "" + x + "" + y;
+        int sy = (7-y)+1;
+        return "" + (x+1) + "" + sy;
     }
 
     public int getX() {
