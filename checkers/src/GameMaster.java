@@ -7,10 +7,10 @@ public class GameMaster {
     private boolean corono;
     private boolean esTurnoAI;
     private GUI gui;
-    private int white = 12;
-    private int black = 12;
+    private int white;
+    private int black;
     private Pos ultimaPos;
-    private int iteracion = 0;
+    private int iteracion;
     
     
     public static GameMaster getInstance(){
@@ -44,13 +44,24 @@ public class GameMaster {
     }
     
     public void IniciarJuego(GUI gui){
+        this.gui = gui;
+        gui.getTxtHistorial().setText("");
+        gui.getTxtNotificaciones().setText("");
+        
+        white = 12;
+        black = 13;
+        iteracion = 0;
+        ultimaPos = null;
         board = new Tablero();
         esTurnoAI = false;
         log = "";
-        this.gui = gui;
+        
         
         gui.agregarNotificacion("Partida Iniciada");
         gui.agregarNotificacion("Turno del Jugador1");
+        gui.pnlTablero.repaint();
+        
+        
         
     }
     
@@ -150,4 +161,5 @@ public class GameMaster {
     public void ultimoNull() {
         ultimaPos = null; 
     }
+    
 }

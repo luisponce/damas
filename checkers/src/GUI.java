@@ -1,6 +1,8 @@
 
 
 import java.awt.Color;
+import javax.swing.*;
+import java.awt.event.*;
 
 /**
  * Interfaz Grafica
@@ -14,14 +16,39 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         crearMatriz();   
-        manejadorClicks = new ManejadorClicks(this);
-        
-        gm = GameMaster.getInstance();
-        
+        manejadorClicks = new ManejadorClicks(this);        
+        gm = GameMaster.getInstance();        
         gm.IniciarJuego(this);
-        
+        JMenuItem nuevaPartida = new JMenuItem();
+        nuevaPartida.setText("Nueva Partida");
+        JMenuItem salir = new JMenuItem();
+        salir.setText("Salir");
+        Opciones.setMnemonic(KeyEvent.VK_0);
+        Opciones.add(nuevaPartida);
+        Opciones.add(salir);
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+         });
+        nuevaPartida.addActionListener(new ActionListener () {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                
+                gm.IniciarJuego(gm.getGUI());
+                panel = new Panel[8][8];
+                crearMatriz();
+                pnlTablero.repaint();
+                
+                
+                //GameMaster.getInstance().GameMaster();
+            }
+        });
+       
         System.out.println(gm.getBoard().EvaluarEstado());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,9 +68,9 @@ public class GUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtNotificaciones = new javax.swing.JTextArea();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        Menu = new javax.swing.JMenuBar();
+        Opciones = new javax.swing.JMenu();
+        Ayuda = new javax.swing.JMenu();
 
         jToolBar1.setRollover(true);
 
@@ -121,13 +148,13 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("Opciones");
-        jMenuBar1.add(jMenu1);
+        Opciones.setText("Opciones");
+        Menu.add(Opciones);
 
-        jMenu2.setText("Ayuda");
-        jMenuBar1.add(jMenu2);
+        Ayuda.setText("Ayuda");
+        Menu.add(Ayuda);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(Menu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,10 +291,20 @@ public class GUI extends javax.swing.JFrame {
         txtNotificaciones.setText(txtNotificaciones.getText() + str + "\n");
     }
     
+    public JTextArea getTxtHistorial() {
+        return txtHistorial;
+    }
+    
+    public JTextArea getTxtNotificaciones() {
+        return txtNotificaciones;
+    }
+    
+    
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu Ayuda;
+    private javax.swing.JMenuBar Menu;
+    private javax.swing.JMenu Opciones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
