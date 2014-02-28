@@ -1,7 +1,5 @@
 
-import com.sun.org.apache.bcel.internal.generic.CPInstruction;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -152,14 +150,14 @@ public class Tablero {
                     }
                     if (esTurnoAI) {
                         GameMaster.getInstance().setBlack(); 
-                        if (GameMaster.getInstance().getBlack() == 0) System.out.println("Gano Blanco");
+                        if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
                     } else {
                         GameMaster.getInstance().setWhite();
-                        if (GameMaster.getInstance().getWhite() == 0) System.out.println("Gano Negro");
+                        if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, "¡ GANASTE !");
+                        
                     }
                 }
         }
-        
         return true;
     }
     /**
@@ -248,10 +246,10 @@ public class Tablero {
                     }
                     if (esTurnoAI) {
                         GameMaster.getInstance().setBlack(); 
-                        if (GameMaster.getInstance().getBlack() == 0) System.out.println("Gano Blanco");
+                        if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
                     } else {
                         GameMaster.getInstance().setWhite();
-                        if (GameMaster.getInstance().getWhite() == 0) System.out.println("Gano Negro");
+                        if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");;
                     }
                 }                  
             } else {//si movio
@@ -261,15 +259,7 @@ public class Tablero {
             }
         }        
         return true;
-    }
-    
-    public boolean ContinuarTurno(Pos posF, Pos posI) {
-        if (posF.equals(posI)) {
-            
-        }
-        return true;
-    }
-    
+    }  
 
     /**
      * Metodo para evalura heuristicamente el estado del tablero.

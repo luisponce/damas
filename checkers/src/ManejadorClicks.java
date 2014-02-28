@@ -41,7 +41,10 @@ import javax.swing.JPanel;
                             Pos nueva = new Pos (p.getX(), p.getY());
                         if (GameMaster.getInstance().getUltimaPos().getX() == selectedPos.getX() && GameMaster.getInstance().getUltimaPos().getY() == selectedPos.getY() ) {
                              GameMaster.getInstance().realizarMovimientoComido(selectedPos, new Pos(p.getValorX(), p.getValorY()));
-                        } else System.out.println("no es la misma ficha ");                   
+                        } else {
+                            String str = "Movimiento inválido";
+                            interfaz.agregarNotificacion(str);
+                        }
                 }
                 }
                 selected = false;

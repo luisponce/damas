@@ -12,6 +12,7 @@ public class GameMaster {
     private Pos ultimaPos;
     private int iteracion = 0;
     
+    
     public static GameMaster getInstance(){
         if (instance==null) {
             instance = new GameMaster();
@@ -35,10 +36,11 @@ public class GameMaster {
         AddLog("\n");
         
         corono = false;
-        
         esTurnoAI = !esTurnoAI;
         if(esTurnoAI) gui.agregarNotificacion("Turno del Jugador2");
         else gui.agregarNotificacion("Turno del Jugador1");
+        
+        
     }
     
     public void IniciarJuego(GUI gui){
@@ -49,6 +51,7 @@ public class GameMaster {
         
         gui.agregarNotificacion("Partida Iniciada");
         gui.agregarNotificacion("Turno del Jugador1");
+        
     }
     
     public void realizarMovimiento(Pos posI, Pos PosF){        
