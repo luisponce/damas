@@ -31,7 +31,7 @@ import javax.swing.JPanel;
                 selectedPos = new Pos(p.getValorX(), p.getValorY()); 
                 
                 //debug
-//                GameMaster.getInstance().printPosibleMoves(selectedPos);
+                GameMaster.getInstance().printPosibleMoves(selectedPos);
             } else {
                 GameMaster.getInstance().getGUI().panel[selectedPos.getY()][selectedPos.getX()].setSelected(false);
                 if (p.getValorX() != selectedPos.getX() || p.getValorY() != selectedPos.getY()) {
