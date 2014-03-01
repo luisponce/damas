@@ -12,44 +12,50 @@ public class GUI extends javax.swing.JFrame {
     Panel panel[][] = new Panel [8][8];
     private ManejadorClicks manejadorClicks;
     private GameMaster gm;
+    private static GUI instancia = null;
+    private JMenuItem salir;
+    private JMenuItem nuevaPartida;
 
+    
+    
     public GUI() {
         initComponents();
         crearMatriz();   
         manejadorClicks = new ManejadorClicks(this);        
         gm = GameMaster.getInstance();        
         gm.IniciarJuego(this);
-        JMenuItem nuevaPartida = new JMenuItem();
-        nuevaPartida.setText("Nueva Partida");
-        JMenuItem salir = new JMenuItem();
-        salir.setText("Salir");
-        Opciones.setMnemonic(KeyEvent.VK_0);
-        Opciones.add(nuevaPartida);
-        Opciones.add(salir);
-        salir.addActionListener(new ActionListener() {
+        Opciones.setMnemonic(KeyEvent.VK_0);      
+        salir = new JMenuItem("Salir");        
+        salir.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent event) {
-                System.exit(0);
+                System.exit(0); //Cierra el programa
             }
-         });
-        nuevaPartida.addActionListener(new ActionListener () {
+        });     
+        nuevaPartida = new JMenuItem("Nueva Partida");
+        nuevaPartida.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evento) {
-                
-                gm.IniciarJuego(gm.getGUI());
-                panel = new Panel[8][8];
-                crearMatriz();
+            public void actionPerformed(ActionEvent event) { 
+               /* pnlTablero.repaint();
+                crearMatriz();                
+                GameMaster.getInstance().IniciarJuego(GameMaster.getInstance().getGUI());
+                actualizarBoard(GameMaster.getInstance().getBoard());
+                //manejadorClicks = new ManejadorClicks(GameMaster.getInstance().getGUI());             
+                pnlTablero.repaint();
+                */
+                gm.IniciarJuego(instancia);
+                actualizarBoard(gm.getBoard());
                 pnlTablero.repaint();
                 
-                
-                //GameMaster.getInstance().GameMaster();
             }
         });
+               
+        Opciones.add(salir);
+        Opciones.add(nuevaPartida);
        
         System.out.println(gm.getBoard().EvaluarEstado());
     }
-    
-
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -253,6 +259,7 @@ public class GUI extends javax.swing.JFrame {
                         jPanelNew.changeImg(Casilla.BLACK);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);                        
                     }else { //Si no va con ficha
+                        jPanelNew.changeImg(Casilla.EMPTY);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                     }
                     jPanelNew.setValorX((i-1)); //guarda el valor x donde lo ubico
@@ -299,7 +306,9 @@ public class GUI extends javax.swing.JFrame {
         return txtNotificaciones;
     }
     
-    
+    public void setInstancia(GUI gui) {
+        instancia = gui;
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Ayuda;

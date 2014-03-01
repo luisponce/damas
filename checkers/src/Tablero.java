@@ -345,6 +345,5 @@ public class Tablero {
         return realAns;
     }
     
-    
 }
 

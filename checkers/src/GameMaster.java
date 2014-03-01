@@ -39,30 +39,26 @@ public class GameMaster {
         esTurnoAI = !esTurnoAI;
         if(esTurnoAI) gui.agregarNotificacion("Turno del Jugador2");
         else gui.agregarNotificacion("Turno del Jugador1");
-        
-        
+
     }
     
-    public void IniciarJuego(GUI gui){
+    public void IniciarJuego(GUI gui){ //Coloca todos los valores en "ceros"
         this.gui = gui;
+        gui.setInstancia(gui);
+        board = new Tablero();
         gui.getTxtHistorial().setText("");
         gui.getTxtNotificaciones().setText("");
         
         white = 12;
-        black = 13;
+        black = 12;
         iteracion = 0;
         ultimaPos = null;
-        board = new Tablero();
         esTurnoAI = false;
         log = "";
-        
         
         gui.agregarNotificacion("Partida Iniciada");
         gui.agregarNotificacion("Turno del Jugador1");
         gui.pnlTablero.repaint();
-        
-        
-        
     }
     
     public void realizarMovimiento(Pos posI, Pos PosF){        
