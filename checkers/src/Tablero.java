@@ -49,7 +49,7 @@ public class Tablero {
             GameMaster.getInstance().EndLogR();
         } else {
             board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
-            System.out.println("entre");
+//            System.out.println("entre");
         }
         
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
