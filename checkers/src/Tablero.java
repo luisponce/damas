@@ -152,11 +152,9 @@ public class Tablero {
                     if (esTurnoAI) {
                         GameMaster.getInstance().setBlack(); 
                         if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-                        GameMaster.getInstance().reiniciar();
                     } else {
                         GameMaster.getInstance().setWhite();
                         if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, "¡ GANASTE !");
-                        GameMaster.getInstance().reiniciar();
                         
                     }
                 }
