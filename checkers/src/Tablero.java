@@ -49,6 +49,7 @@ public class Tablero {
             GameMaster.getInstance().EndLogR();
         } else {
             board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
+//            System.out.println("entre");
         }
         
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
@@ -326,6 +327,15 @@ public class Tablero {
         return board[i][j];
     }
     
+    /**
+     * Encuentra los posibles movimientos de una ficha del tablero
+     * 
+     * @param start tablero del que se buscae el movimiento
+     * @param posX componente x de la posicion
+     * @param posY componente y de la posicion
+     * @param esTurnoAI si es el turno del PC
+     * @return arreglo con las posiciones finales de los movimientos posibles
+     */
     public Pos[] PosiblesMovimientosFicha(Tablero start, int posX, int posY, boolean esTurnoAI){
         Pos[] ans = new Pos[8];
         int count = 0;
@@ -347,5 +357,9 @@ public class Tablero {
         return realAns;
     }
     
+    public Tablero[] PosiblesTablerosFicha(Tablero t, Pos start, Pos[] moves){
+        Tablero[] ans = new Tablero[moves.length];
+        return ans;
+    }
 }
 
