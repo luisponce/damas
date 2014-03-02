@@ -1,5 +1,4 @@
 
-
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.*;
@@ -15,10 +14,8 @@ public class GUI extends javax.swing.JFrame {
     private static GUI instancia = null;
     private JMenuItem salir;
     private JMenuItem nuevaPartida;
-
-    
-    
-    public GUI() {
+  
+        public GUI() {
         initComponents();
         crearMatriz();   
         manejadorClicks = new ManejadorClicks(this);        
@@ -36,20 +33,9 @@ public class GUI extends javax.swing.JFrame {
         nuevaPartida.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) { 
-               /* pnlTablero.repaint();
-                crearMatriz();                
-                GameMaster.getInstance().IniciarJuego(GameMaster.getInstance().getGUI());
-                actualizarBoard(GameMaster.getInstance().getBoard());
-                //manejadorClicks = new ManejadorClicks(GameMaster.getInstance().getGUI());             
-                pnlTablero.repaint();
-                */
-                gm.IniciarJuego(instancia);
-                actualizarBoard(gm.getBoard());
-                pnlTablero.repaint();
-                
+                gm.reiniciar(); // invoca reiniciar de GameMaster para realizar un nuevo juego
             }
-        });
-               
+        });               
         Opciones.add(salir);
         Opciones.add(nuevaPartida);
        
@@ -234,7 +220,10 @@ public class GUI extends javax.swing.JFrame {
         
     }
     
-    private void crearMatriz() { //Metodo para crear los paneles y guardarlos con sus caracteristicas en la matriz de GUI
+    /*
+     * Crea la matriz original, ubicando los paneles y guardandolos con sus caracteristicas en la matriz de GUI
+     */
+    private void crearMatriz() { 
        pnlTablero.setLayout(null);
        pnlTablero.setBackground(Color.black);
         int dimensionX = pnlTablero.getWidth();
@@ -289,8 +278,7 @@ public class GUI extends javax.swing.JFrame {
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
                 }                
             }
-        }
-        
+        }        
         pnlTablero.repaint();
     }
     
