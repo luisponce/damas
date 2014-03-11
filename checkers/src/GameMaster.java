@@ -1,4 +1,8 @@
 
+import javax.swing.JOptionPane;
+import javax.vecmath.GMatrix;
+
+
 public class GameMaster {
     private static GameMaster instance = null;
     private Tablero board;
@@ -37,8 +41,11 @@ public class GameMaster {
         
         corono = false;
         esTurnoAI = !esTurnoAI;
-        if(esTurnoAI) gui.agregarNotificacion("Turno del Jugador2");
-        else gui.agregarNotificacion("Turno del Jugador1");
+        if(esTurnoAI) {
+            gui.agregarNotificacion("Turno del Jugador2 - Blancas");
+            player2.Play();
+        }
+        else gui.agregarNotificacion("Turno del Jugador1 - Negras");
         
         
     }
@@ -68,8 +75,11 @@ public class GameMaster {
     public void realizarMovimiento(Pos posI, Pos PosF){        
             if(board.Validar(posI, PosF, esTurnoAI)){
                 board.Mover(posI, PosF);
-                System.out.println("ultimo es: " + ultimaPos); 
-                System.out.println(board.EvaluarEstado());
+//                System.out.println("ultimo es: " + ultimaPos); 
+//                System.out.println(board.EvaluarEstado());
+//                player2.buildAndPrintArbol();
+                if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+                if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
             }
             else {
                 gui.agregarNotificacion("Movimiento invalido");
@@ -118,6 +128,7 @@ public class GameMaster {
 
     public void setBoard(Tablero board) {
         this.board = board;
+        gui.actualizarBoard(board);
     }
 
     public boolean isEsTurnoAI() {

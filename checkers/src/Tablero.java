@@ -31,6 +31,12 @@ public class Tablero {
         }
     }
     
+    public Tablero(Casilla[][] board){
+        for (int i = 0; i < 8; i++) {
+            System.arraycopy(board[i], 0, this.board[i], 0, 8);
+        }
+    }
+    
     /**
      * Metodo para mover una ficha de la posicion Inical a la posicion Final.
      * No valida si el movimiento es valido, solo realiza el movimiento.
@@ -71,6 +77,28 @@ public class Tablero {
             GameMaster.getInstance().AddLog(str);
             GameMaster.getInstance().setIteracion();
             GameMaster.getInstance().setUltimaPos(posF);
+            
+            if (dirX>0){//derecha
+                if(dirY<0){//derecha-arriba
+                    board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
+                } else { //derecha-abajo
+                    board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
+                }
+            } else {//izquierda
+                if(dirY<0){//izquierda-arriba
+                    board[posI.getY()-1][posI.getX()-1] = Casilla.EMPTY;
+                } else { //izquierda-abajo
+                    board[posI.getY()+1][posI.getX()-1] = Casilla.EMPTY;
+                }
+            }
+            if (GameMaster.getInstance().isEsTurnoAI()) {
+                GameMaster.getInstance().setBlack(); 
+
+            } else {
+                GameMaster.getInstance().setWhite();
+
+            }
+                
         } else {
             GameMaster.getInstance().AddLog(str);
             GameMaster.getInstance().iteracionCero();
@@ -79,6 +107,41 @@ public class Tablero {
 
         }
         GameMaster.getInstance().getGUI().actualizarBoard(this); //actualiza panel para mostrar
+    }
+    
+    public void MoverVirtual(Pos posI, Pos posF){
+        if(posF.getY() == 0 || posF.getY() == 7){ //si corono la ficha
+            if (board[posI.getY()][posI.getX()]==Casilla.BLACK) {
+                board[posF.getY()][posF.getX()]=Casilla.BLACKQUEEN;
+            } else {
+                board[posF.getY()][posF.getX()]=Casilla.WHITEQUEEN;
+            }
+        } else {
+            board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
+        }
+        
+        board[posI.getY()][posI.getX()] = Casilla.EMPTY;
+        
+        if(Math.abs(posI.getX()-posF.getX()) > 1){ 
+            int dirX = posF.getX()-posI.getX();
+            int dirY = posF.getY()-posI.getY();
+            
+            if (dirX>0){//derecha
+                if(dirY<0){//derecha-arriba
+                    board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
+                } else { //derecha-abajo
+                    board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
+                }
+            } else {//izquierda
+                if(dirY<0){//izquierda-arriba
+                    board[posI.getY()-1][posI.getX()-1] = Casilla.EMPTY;
+                } else { //izquierda-abajo
+                    board[posI.getY()+1][posI.getX()-1] = Casilla.EMPTY;
+                }
+            }
+        } else {
+            
+        }
     }
     
     public boolean ValidarComido (Pos posI, Pos posF, boolean esTurnoAI) {
@@ -177,6 +240,10 @@ public class Tablero {
             return false;
         }
         
+        if (posI == posF || (posI.getX()==posF.getX() && posI.getY()==posF.getY())) {
+            return false;
+        }
+        
         if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
         Casilla ficha = board[posI.getY()][posI.getX()];        
         if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
@@ -231,28 +298,7 @@ public class Tablero {
                 if (mid == board[posI.getY()][posI.getX()]) return false;
                 if(mid == Casilla.EMPTY) {
                   return false; // si "comio" vacio   
-                } else { //borra la que se comio y la resta
-                    if (dirX>0){//derecha
-                        if(dirY<0){//derecha-arriba
-                            board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
-                        } else { //derecha-abajo
-                            board[posI.getY()+1][posI.getX()+1] = Casilla.EMPTY;
-                        }
-                    } else {//izquierda
-                        if(dirY<0){//izquierda-arriba
-                            board[posI.getY()-1][posI.getX()-1] = Casilla.EMPTY;
-                        } else { //izquierda-abajo
-                            board[posI.getY()+1][posI.getX()-1] = Casilla.EMPTY;
-                        }
-                    }
-                    if (esTurnoAI) {
-                        GameMaster.getInstance().setBlack(); 
-                        if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-                    } else {
-                        GameMaster.getInstance().setWhite();
-                        if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");;
-                    }
-                }                  
+                }                 
             } else {//si movio
                 if (diffX != 1 || diffY != 1) {
                     return false;
@@ -355,9 +401,33 @@ public class Tablero {
         return realAns;
     }
     
+    /**
+     * Dado un tablero, una posicion y unos movimientos retorna el arreglo de
+     * tableros que derivan del tablero dado.
+     * @param t tablero Inicial
+     * @param start Posicion de la ficha a mover
+     * @param moves Arreglo de posiciones finales de los movimientos
+     * @return Los posibles tableros de los movimientos
+     */
     public Tablero[] PosiblesTablerosFicha(Tablero t, Pos start, Pos[] moves){
         Tablero[] ans = new Tablero[moves.length];
+        
+        for (int i = 0; i < moves.length; i++) {
+            ans[i] = new Tablero(board);
+            ans[i].MoverVirtual(start, moves[i]);
+        }
+        
         return ans;
+    }
+    
+    public void PrintTablero(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 }
 

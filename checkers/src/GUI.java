@@ -45,8 +45,6 @@ public class GUI extends javax.swing.JFrame {
                 //GameMaster.getInstance().GameMaster();
             }
         });
-       
-        System.out.println(gm.getBoard().EvaluarEstado());
     }
     
 
