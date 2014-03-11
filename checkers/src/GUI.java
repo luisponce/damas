@@ -1,5 +1,4 @@
 
-
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.event.*;
@@ -12,42 +11,35 @@ public class GUI extends javax.swing.JFrame {
     Panel panel[][] = new Panel [8][8];
     private ManejadorClicks manejadorClicks;
     private GameMaster gm;
-
-    public GUI() {
+    private static GUI instancia = null;
+    private JMenuItem salir;
+    private JMenuItem nuevaPartida;
+  
+        public GUI() {
         initComponents();
         crearMatriz();   
         manejadorClicks = new ManejadorClicks(this);        
         gm = GameMaster.getInstance();        
         gm.IniciarJuego(this);
-        JMenuItem nuevaPartida = new JMenuItem();
-        nuevaPartida.setText("Nueva Partida");
-        JMenuItem salir = new JMenuItem();
-        salir.setText("Salir");
-        Opciones.setMnemonic(KeyEvent.VK_0);
-        Opciones.add(nuevaPartida);
-        Opciones.add(salir);
-        salir.addActionListener(new ActionListener() {
+        Opciones.setMnemonic(KeyEvent.VK_0);      
+        salir = new JMenuItem("Salir");        
+        salir.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent event) {
-                System.exit(0);
+                System.exit(0); //Cierra el programa
             }
-         });
-        nuevaPartida.addActionListener(new ActionListener () {
+        });     
+        nuevaPartida = new JMenuItem("Nueva Partida");
+        nuevaPartida.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent evento) {
-                
-                gm.IniciarJuego(gm.getGUI());
-                panel = new Panel[8][8];
-                crearMatriz();
-                pnlTablero.repaint();
-                
-                
-                //GameMaster.getInstance().GameMaster();
+            public void actionPerformed(ActionEvent event) { 
+                gm.reiniciar(); // invoca reiniciar de GameMaster para realizar un nuevo juego
             }
-        });
+        });               
+        Opciones.add(salir);
+        Opciones.add(nuevaPartida);
     }
-    
-
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -226,7 +218,10 @@ public class GUI extends javax.swing.JFrame {
         
     }
     
-    private void crearMatriz() { //Metodo para crear los paneles y guardarlos con sus caracteristicas en la matriz de GUI
+    /*
+     * Crea la matriz original, ubicando los paneles y guardandolos con sus caracteristicas en la matriz de GUI
+     */
+    private void crearMatriz() { 
        pnlTablero.setLayout(null);
        pnlTablero.setBackground(Color.black);
         int dimensionX = pnlTablero.getWidth();
@@ -251,6 +246,7 @@ public class GUI extends javax.swing.JFrame {
                         jPanelNew.changeImg(Casilla.BLACK);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);                        
                     }else { //Si no va con ficha
+                        jPanelNew.changeImg(Casilla.EMPTY);
                         jPanelNew.setBounds((i-1)*tamañoX, (j-1)*tamañoY, tamañoX, tamañoY);
                     }
                     jPanelNew.setValorX((i-1)); //guarda el valor x donde lo ubico
@@ -280,8 +276,7 @@ public class GUI extends javax.swing.JFrame {
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
                 }                
             }
-        }
-        
+        }        
         pnlTablero.repaint();
     }
     
@@ -297,7 +292,9 @@ public class GUI extends javax.swing.JFrame {
         return txtNotificaciones;
     }
     
-    
+    public void setInstancia(GUI gui) {
+        instancia = gui;
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Ayuda;

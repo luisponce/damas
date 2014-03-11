@@ -16,7 +16,9 @@ public class GameMaster {
     private Pos ultimaPos;
     private int iteracion;
     
-    
+    /*
+     * Metodo que permite tener solo una instancia de GameMaster y mediante el cual todos pueden acceder a ella
+     */
     public static GameMaster getInstance(){
         if (instance==null) {
             instance = new GameMaster();
@@ -24,15 +26,24 @@ public class GameMaster {
         return instance;
     } 
     
+    /*
+     * Constructor de GameMaster, privado para que solo se pueda acceder mediante getInstance()
+     */
     private GameMaster(){
         player2 = new AI();
     }
     
+    /*
+     * Añade evento al log
+     */
     public void AddLog(String play){
         log += play;
         gui.actualizarLog(log);
     }
     
+    /*
+     * Finaliza el turno actual y añade los eventos necesarios en Log y Notificaciones
+     */
     public void TerminarTurno(){
         if (corono) {
             AddLog(" R");
@@ -46,32 +57,33 @@ public class GameMaster {
             player2.Play();
         }
         else gui.agregarNotificacion("Turno del Jugador1 - Negras");
-        
-        
     }
     
-    public void IniciarJuego(GUI gui){
+    /*
+     * Permite Iniciar el juego desde "ceros", con todos los valores en el estado inicial necesario
+     */
+    public void IniciarJuego(GUI gui){ 
         this.gui = gui;
+        gui.setInstancia(gui);
+        board = new Tablero();
         gui.getTxtHistorial().setText("");
         gui.getTxtNotificaciones().setText("");
         
         white = 12;
-        black = 13;
+        black = 12;
         iteracion = 0;
         ultimaPos = null;
-        board = new Tablero();
         esTurnoAI = false;
         log = "";
-        
         
         gui.agregarNotificacion("Partida Iniciada");
         gui.agregarNotificacion("Turno del Jugador1");
         gui.pnlTablero.repaint();
-        
-        
-        
     }
     
+    /*
+     * Permite realizar el movimiento deseado si es válido
+     */
     public void realizarMovimiento(Pos posI, Pos PosF){        
             if(board.Validar(posI, PosF, esTurnoAI)){
                 board.Mover(posI, PosF);
@@ -88,7 +100,7 @@ public class GameMaster {
     }
     
     /**
-     * Metodo para mover luego de comer ficha
+     * Metodo para mover luego de comer ficha validando primero si este es valido
      * @param posI
      * @param PosF 
      */
@@ -104,7 +116,9 @@ public class GameMaster {
          gui.actualizarBoard(board);
     }
         
-    //Metodo para probar los posibles movimientos de una ficha
+    /**
+     * Metodo para probar los posibles movimientos de una ficha
+     */
     public void printPosibleMoves(Pos pos){
         System.out.println("Moves " + pos.toString() + ":");
         Pos[] moves = board.PosiblesMovimientosFicha(board, pos.getX(), pos.getY(), esTurnoAI);
@@ -171,6 +185,15 @@ public class GameMaster {
     
     public void ultimoNull() {
         ultimaPos = null; 
+    }
+    
+    /*
+     * Permite realizar un juevo nuevo
+     */
+    public void reiniciar() {
+        IniciarJuego(gui);
+        gui.actualizarBoard(board);
+        gui.pnlTablero.repaint();
     }
     
 }
