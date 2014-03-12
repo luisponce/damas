@@ -109,6 +109,8 @@ public class GameMaster {
                 board.Mover(posI, PosF);
                 System.out.println("ultimo es: " + ultimaPos); 
                 System.out.println(board.EvaluarEstado());
+                if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+                if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
             }
             else {
                 gui.agregarNotificacion("Movimiento invalido");

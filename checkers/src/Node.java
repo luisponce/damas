@@ -13,13 +13,17 @@ public class Node {
     private Tablero board;
     private ArrayList<Node> hijos;
     private Node padre;
+    private String moveMade;
 
     public Node(Tablero board) {
         this.board = board;
         hijos = new ArrayList<>();
+        moveMade = "";
     }
     
-    
+    public void addMove(String str){
+        moveMade += str;
+    }
     
     public Node Minimax(int lvl, boolean esTurnoAI){
         if (lvl==0 || this.hijos.isEmpty()){
@@ -62,6 +66,8 @@ public class Node {
         return board;
     }
     
+    
+    
     public void ConstrirArbol(int lvl, boolean esTurnoAI){
         if(lvl == 0) { //si es hoja
             
@@ -76,6 +82,7 @@ public class Node {
                     }
                     for (Tablero tablero : moves) {
                         Node cur = new Node(tablero);
+                        cur.addMove(findMove(this, cur));
                         cur.ConstrirArbol(lvl-1, !esTurnoAI);
                         hijos.add(cur);
                     }
@@ -88,6 +95,49 @@ public class Node {
         board.PrintTablero();
     }
 
+    //TODO metodo que con dos nodos me da un string del movimiento
+    public String findMove(Node start, Node target){
+        String str = "";
+        Pos positions[] = new Pos[3];
+        int cont = 0;
+        Tablero b1 = start.getBoard(),
+                b2 = target.getBoard();
+        
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (b1.getPosInBoard(j, i) != b2.getPosInBoard(j, i)) {
+                    positions[cont] = new Pos(i, j);
+                    cont++;
+                }
+            }
+        }
+        
+        if (cont == 2) {//si mueve
+            Pos origin, end;
+            if (b1.getPosInBoard(positions[0].getX(), positions[0].getY()) == Casilla.EMPTY) {//es la pos final
+                origin = positions[1];
+                end = positions[0];
+            } else {//es la pos inicial
+                origin = positions[0];
+                end = positions[1];
+            }
+            str = origin.toString();
+            str += " " + end.toString();
+            
+            if ((b2.getPosInBoard(end.getX(), end.getY()) == Casilla.BLACKQUEEN || 
+                 b2.getPosInBoard(end.getX(), end.getY()) == Casilla.WHITEQUEEN) &&
+                (b1.getPosInBoard(origin.getX(), origin.getY()) != b2.getPosInBoard(end.getX(), end.getY()))) {
+                str += " R";
+            }
+        } else {//si come
+            str = "C ";
+            
+            
+        }
+        
+        return str;
+    }
+    
     public ArrayList<Node> getHijos() {
         return hijos;
     }
@@ -95,6 +145,12 @@ public class Node {
     public int getVal() {
         return val;
     }
+
+    public String getMoveMade() {
+        return moveMade;
+    }
+    
+    
     
     
 }

@@ -1,6 +1,4 @@
 
-import com.sun.xml.internal.ws.message.RootElementSniffer;
-import java.util.Currency;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +17,10 @@ public class AI {
         
         System.out.println("arbol construido");
         
-        Tablero next = MinimaxArbol(6).getBoard();
+        Node move = MinimaxArbol(minimaxLvl);
+        
+        Tablero next = move.getBoard();
+        gm.AddLog(move.getMoveMade());
         
         next.PrintTablero();
 //        root.getHijos().get(0).getHijos().get(0).printNodo();

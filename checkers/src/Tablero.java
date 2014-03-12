@@ -367,7 +367,7 @@ public class Tablero {
 //        }
 //        System.out.print("\n");
 //    }
-    public Casilla getBoard(int i, int j) {
+    public Casilla getPosInBoard(int i, int j) {
         return board[i][j];
     }
     

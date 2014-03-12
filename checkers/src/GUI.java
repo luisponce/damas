@@ -271,7 +271,7 @@ public class GUI extends javax.swing.JFrame {
             for (int j = 0; j < 8; j++) {
                 if ((i+j)%2== 0) {
 //                    System.out.print(newBoard.getBoard(i, j));
-                    panel[i][j].changeImg(newBoard.getBoard(i,j)); 
+                    panel[i][j].changeImg(newBoard.getPosInBoard(i,j)); 
 //                    panel[i][j].repaint();
                // panel[i][j].changeImg(GameMaster.getInstance().getBoard().getBoard(i,j));   
                 }                
