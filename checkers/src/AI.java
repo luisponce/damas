@@ -77,7 +77,7 @@ public class AI {
     
     public void buildArbol(int lvl){
         root = new Node(GameMaster.getInstance().getBoard());
-        root.ConstrirArbol(lvl, GameMaster.getInstance().isEsTurnoAI());
+        root.ConstruirArbol(lvl, GameMaster.getInstance().isEsTurnoAI());
     }
     
     public void buildAndPrintArbol(int lvl){

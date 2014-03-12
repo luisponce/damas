@@ -68,7 +68,7 @@ public class Node {
     
     
     
-    public void ConstrirArbol(int lvl, boolean esTurnoAI){
+    public void ConstruirArbol(int lvl, boolean esTurnoAI){
         if(lvl == 0) { //si es hoja
             
         } else {//si no es hoja
@@ -83,7 +83,7 @@ public class Node {
                     for (Tablero tablero : moves) {
                         Node cur = new Node(tablero);
                         cur.addMove(findMove(this, cur));
-                        cur.ConstrirArbol(lvl-1, !esTurnoAI);
+                        cur.ConstruirArbol(lvl-1, !esTurnoAI);
                         hijos.add(cur);
                     }
                 }
@@ -112,27 +112,42 @@ public class Node {
             }
         }
         
-        if (cont == 2) {//si mueve
-            Pos origin, end;
-            if (b1.getPosInBoard(positions[0].getX(), positions[0].getY()) == Casilla.EMPTY) {//es la pos final
-                origin = positions[1];
-                end = positions[0];
-            } else {//es la pos inicial
-                origin = positions[0];
-                end = positions[1];
-            }
-            str = origin.toString();
-            str += " " + end.toString();
-            
-            if ((b2.getPosInBoard(end.getX(), end.getY()) == Casilla.BLACKQUEEN || 
-                 b2.getPosInBoard(end.getX(), end.getY()) == Casilla.WHITEQUEEN) &&
-                (b1.getPosInBoard(origin.getX(), origin.getY()) != b2.getPosInBoard(end.getX(), end.getY()))) {
-                str += " R";
-            }
-        } else {//si come
+        if (cont > 2) {//si come
             str = "C ";
-            
-            
+            int posEmpty = -1;
+            for (int i = 0; i < 3; i++) {
+                int posx, posy;
+                posx = positions[i].getY();
+                posy = positions[i].getX();
+                if ((b1.getPosInBoard(posx, posy) == Casilla.BLACK ||
+                     b1.getPosInBoard(posx, posy) == Casilla.BLACKQUEEN) &&
+                    b2.getPosInBoard(posx, posy) == Casilla.EMPTY) {
+                    posEmpty = i;
+                }
+                if (posEmpty!=2) {
+                    if (posEmpty==0) {
+                        positions[0]=positions[2];
+                    } else if (posEmpty==1) {
+                        positions[1]=positions[2];
+                    }
+                }
+            }   
+        }
+        
+        Pos origin, end;
+        if (b1.getPosInBoard(positions[0].getY(), positions[0].getX()) == Casilla.EMPTY) {//es la pos final
+            origin = positions[1];
+            end = positions[0];
+        } else {//es la pos inicial
+            origin = positions[0];
+            end = positions[1];
+        }
+        str += origin.toString();
+        str += " " + end.toString();
+
+        if ((b2.getPosInBoard(end.getY(), end.getX()) == Casilla.WHITEQUEEN) &&
+            (b1.getPosInBoard(origin.getY(), origin.getX()) != b2.getPosInBoard(end.getY(), end.getX()))) {
+            str += " R";
         }
         
         return str;
