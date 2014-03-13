@@ -33,6 +33,8 @@ public class AI {
         
         System.out.println("minimax done");
         
+        //TODO: if move.getmovemade empieza con C vuelva a jugar
+        
         gm.TerminarTurno();
     }
     

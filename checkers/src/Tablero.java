@@ -98,7 +98,7 @@ public class Tablero {
                 GameMaster.getInstance().setWhite();
 
             }
-                
+            //TODO
         } else {
             GameMaster.getInstance().AddLog(str);
             GameMaster.getInstance().iteracionCero();
@@ -108,6 +108,8 @@ public class Tablero {
         }
         GameMaster.getInstance().getGUI().actualizarBoard(this); //actualiza panel para mostrar
     }
+    
+    
     
     public void MoverVirtual(Pos posI, Pos posF){
         if(posF.getY() == 0 || posF.getY() == 7){ //si corono la ficha
