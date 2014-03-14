@@ -178,11 +178,6 @@ public class GameMaster {
         return white;
     }    
     
-   /* public void setIteracion() {
-        iteracion++;
-    }
-    * */
-    
     public void setUltimaPos(Pos ultimaP) {
         ultimaPos = ultimaP;
     }
