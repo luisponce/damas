@@ -1,6 +1,6 @@
 
 import javax.swing.JOptionPane;
-import javax.vecmath.GMatrix;
+//import javax.vecmath.GMatrix;
 
 
 public class GameMaster {
@@ -103,9 +103,7 @@ public class GameMaster {
             else {
                 gui.agregarNotificacion("Movimiento invalido");
             }
-        gui.actualizarBoard(board);
-        
-        
+        gui.actualizarBoard(board);      
     }
     
     /**
@@ -113,23 +111,22 @@ public class GameMaster {
      * @param posI
      * @param PosF 
      */
-    public void realizarMovimientoComido(Pos posI, Pos PosF) { if(board.ValidarComido(posI, PosF, esTurnoAI)){
-                board.Mover(posI, PosF);
-                System.out.println("ultimo es: " + ultimaPos); 
-                System.out.println(board.EvaluarEstado());
-                if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-                if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
-                
-                if (board.PosiblesMovimientosFicha(board, PosF.getY(), PosF.getX(), esTurnoAI).length == 0) {
-                    TerminarTurno();
-                    ultimoNull();
-                    iteracionCero();
-                }
-            }
-            else {
+    public void realizarMovimientoComido(Pos posI, Pos PosF) { 
+        if (board.ValidarComido(posI, PosF, esTurnoAI)) {
+            board.Mover(posI, PosF);
+            System.out.println(board.EvaluarEstado());
+            if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+            if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");            
+        }
+        if (board.PosiblesMovimientosFicha(board, PosF.getY(), PosF.getX(), esTurnoAI).length == 0) {
+            TerminarTurno();
+            ultimoNull();
+          //iteracionCero();
+        }
+        else {
                 gui.agregarNotificacion("Movimiento invalido");
-            }
-         gui.actualizarBoard(board);
+        }
+        gui.actualizarBoard(board);
     }
         
     /**
@@ -181,9 +178,11 @@ public class GameMaster {
         return white;
     }    
     
-    public void setIteracion() {
+   /* public void setIteracion() {
         iteracion++;
     }
+    * */
+    
     public void setUltimaPos(Pos ultimaP) {
         ultimaPos = ultimaP;
     }

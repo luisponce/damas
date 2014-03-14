@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+//import javax.swing.ImageIcon;
+//import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 
 /**
  * Clase tipo de matriz GUI
@@ -59,39 +59,6 @@ public class Panel extends JPanel{
                 imagen = null;
                 break;
         }
-        
-//        ImageIcon imagen;
-//        JLabel background;
-//        switch (target){
-//            case BLACK:
-//                imagen = new ImageIcon ("negra.jpg");
-//                background  = new JLabel();            
-//                background.setIcon(imagen);
-//                add(background); 
-//                break;
-//            case WHITE:
-//                imagen = new ImageIcon ("blanca.jpg");
-//                background  = new JLabel();            
-//                background.setIcon(imagen);
-//                add(background);
-//                break;
-//                /*
-//            case BLACKQUEEN:
-//                imagen = new ImageIcon("");
-//                background  = new JLabel();            
-//                background.setIcon(imagen);
-//                add(background);
-//                break;
-//            case WHITEQUEEN: 
-//                imagen = new ImageIcon("");
-//                background  = new JLabel();            
-//                background.setIcon(imagen);
-//                add(background);
-//                break;
-//                */
-//            default:
-//                break;
-//        }
     }
     public void setValorX(int x) {
         valorX = x;

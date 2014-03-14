@@ -48,34 +48,29 @@ public class Tablero {
         if(posF.getY() == 0 || posF.getY() == 7){ //si corono la ficha
             if (board[posI.getY()][posI.getX()]==Casilla.BLACK) {
                 board[posF.getY()][posF.getX()]=Casilla.BLACKQUEEN;
-            } else {
-                board[posF.getY()][posF.getX()]=Casilla.WHITEQUEEN;
-            }
-            
+            } else if (board[posI.getY()][posI.getX()] == Casilla.WHITE) {
+                    board[posF.getY()][posF.getX()]=Casilla.WHITEQUEEN;
+            } else if (board[posI.getY()][posI.getX()] == Casilla.WHITEQUEEN) {
+                board[posF.getY()][posF.getX()] = Casilla.WHITEQUEEN;                
+            } else if (board[posI.getY()][posI.getX()] == Casilla.BLACKQUEEN) {
+                board[posF.getY()][posF.getX()] = Casilla.BLACKQUEEN;  
+            }            
             GameMaster.getInstance().EndLogR();
         } else {
             board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
 //            System.out.println("entre");
-        }
-        
+        }        
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
-        
-//        String pI = posI.toString();
-//        String pF = posF.toString();
-//        int pi = Integer.parseInt(pI) + 11;
-//        int pf = Integer.parseInt(pF) + 11;
-//        pI = ""+pi;
-//        pF = ""+pf;
+
         String str = posI.toString() + " " + posF.toString();
         if(Math.abs(posI.getX()-posF.getX()) > 1){ //si capturo una ficha
             int dirX = posF.getX()-posI.getX();
             int dirY = posF.getY()-posI.getY();
-            //board[posI.getY()][posI.getX()] = Casilla.EMPTY;
             //board[posF.getY()-posI.getY()][posF.getX()-posI.getX()] = Casilla.EMPTY; // la que se comio
             //board[posI.getY()+dirY][posI.getX()+dirX] = Casilla.EMPTY;
             str = "C " + str + " ";
             GameMaster.getInstance().AddLog(str);
-            GameMaster.getInstance().setIteracion();
+            //GameMaster.getInstance().setIteracion();
             GameMaster.getInstance().setUltimaPos(posF);
             
             if (dirX>0){//derecha
@@ -101,7 +96,7 @@ public class Tablero {
             //TODO
         } else {
             GameMaster.getInstance().AddLog(str);
-            GameMaster.getInstance().iteracionCero();
+            //GameMaster.getInstance().iteracionCero();
             GameMaster.getInstance().ultimoNull();
             GameMaster.getInstance().TerminarTurno();
 
@@ -147,6 +142,7 @@ public class Tablero {
     }
     
     public boolean ValidarComido (Pos posI, Pos posF, boolean esTurnoAI) {
+        
         if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
         Casilla ficha = board[posI.getY()][posI.getX()];        
         if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
@@ -181,7 +177,7 @@ public class Tablero {
             if (diffX != 2 || diffY != 2) { //tiene que ser siempre 2
                     return false;
                 }
-                         int dirX = posF.getX()-posI.getX();
+                int dirX = posF.getX()-posI.getX();
                 int dirY = posF.getY()-posI.getY();
                 Casilla mid;
                 if (dirX>0){//derecha
@@ -200,7 +196,16 @@ public class Tablero {
                 if (mid == board[posI.getY()][posI.getX()]) return false;
                 if(mid == Casilla.EMPTY) {
                   return false; // si "comio" vacio   
-                } else { //borra la que se comio y la resta
+                }
+                if (esTurnoAI) { //Si come su misma ficha
+                    if (mid== Casilla.WHITE || mid == Casilla.WHITEQUEEN ) {
+                        return false;
+                    }
+                } else if (mid == Casilla.BLACK || mid == Casilla.BLACKQUEEN) {
+                    return false;
+                }
+                /*
+                 * else { //borra la que se comio y la resta
                     if (dirX>0){//derecha
                         if(dirY<0){//derecha-arriba
                             board[posI.getY()-1][posI.getX()+1] = Casilla.EMPTY;
@@ -222,7 +227,7 @@ public class Tablero {
                         if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, "¡ GANASTE !");
                         
                     }
-                }
+                } */
         }
         return true;
     }
@@ -247,11 +252,10 @@ public class Tablero {
         }
         
         if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
-        Casilla ficha = board[posI.getY()][posI.getX()];        
-        if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
-            
+        Casilla ficha = board[posI.getY()][posI.getX()]; // ficha = posicion undida     
+        if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha          
         //si no es mi ficha o no va en la direccion adecuada
-        if (esTurnoAI) {
+        if (esTurnoAI) { //Si no es la ficha correspondiente
             if(ficha == Casilla.BLACK || ficha == Casilla.BLACKQUEEN){
                 return false;
             } else {
@@ -268,13 +272,13 @@ public class Tablero {
                 }
             }
         }        
-        if(posF.getY() == posI.getY() || posF.getX()==posI.getX()){
+        if(posF.getY() == posI.getY() || posF.getX()==posI.getX()){ // si se movio horizontal o verticalmente
             return false;
         }        
         //validar si se movio o si comio
         int diffY = Math.abs(posF.getY()-posI.getY());
         int diffX = Math.abs(posF.getX()-posI.getX());
-        if(diffY > 2){ 
+        if(diffY > 2){ //Si brinco mas de dos
             return false;
         } else {
             if (diffY == 2) { //si comio
@@ -297,11 +301,18 @@ public class Tablero {
                         mid = board[posI.getY()+1][posI.getX()-1];
                     }
                 }
-                if (mid == board[posI.getY()][posI.getX()]) return false;
-                if(mid == Casilla.EMPTY) {
-                  return false; // si "comio" vacio   
-                }                 
-            } else {//si movio
+                if (mid == board[posI.getY()][posI.getX()]) return false; // si es la posicion inicial
+                if(mid == Casilla.EMPTY) { // si "comio" vacio  
+                  return false;  
+                }
+                if (esTurnoAI) { //Si come su misma ficha
+                    if (mid== Casilla.WHITE || mid == Casilla.WHITEQUEEN ) {
+                        return false;
+                    }
+                } else if (mid == Casilla.BLACK || mid == Casilla.BLACKQUEEN) {
+                    return false;
+                }
+            } else {//si solo movio
                 if (diffX != 1 || diffY != 1) {
                     return false;
                 }
