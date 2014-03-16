@@ -35,7 +35,7 @@ import javax.swing.JPanel;
             } else {
                 GameMaster.getInstance().getGUI().panel[selectedPos.getY()][selectedPos.getX()].setSelected(false);
                 if (p.getValorX() != selectedPos.getX() || p.getValorY() != selectedPos.getY()) {
-                    if (GameMaster.getInstance().getIteracion() == 0) { //quitar if
+                    if (GameMaster.getInstance().getUltimaPos()== null) {
                         GameMaster.getInstance().realizarMovimiento(selectedPos, new Pos(p.getValorX(), p.getValorY()));
                     } else {
                             Pos nueva = new Pos (p.getX(), p.getY());

@@ -58,7 +58,6 @@ public class Tablero {
             GameMaster.getInstance().EndLogR();
         } else {
             board[posF.getY()][posF.getX()] = board[posI.getY()][posI.getX()];
-//            System.out.println("entre");
         }        
         board[posI.getY()][posI.getX()] = Casilla.EMPTY;
 
@@ -71,7 +70,6 @@ public class Tablero {
             str = "C " + str + " ";
             GameMaster.getInstance().AddLog(str);
             //GameMaster.getInstance().setIteracion();
-            GameMaster.getInstance().setUltimaPos(posF);
             
             if (dirX>0){//derecha
                 if(dirY<0){//derecha-arriba
@@ -91,20 +89,16 @@ public class Tablero {
 
             } else {
                 GameMaster.getInstance().setWhite();
-
             }
+            GameMaster.getInstance().setUltimaPos(posF);
             //TODO
         } else {
             GameMaster.getInstance().AddLog(str);
-            //GameMaster.getInstance().iteracionCero();
             GameMaster.getInstance().ultimoNull();
             GameMaster.getInstance().TerminarTurno();
-
         }
         GameMaster.getInstance().getGUI().actualizarBoard(this); //actualiza panel para mostrar
     }
-    
-    
     
     public void MoverVirtual(Pos posI, Pos posF){
         if(posF.getY() == 0 || posF.getY() == 7){ //si corono la ficha
@@ -142,7 +136,16 @@ public class Tablero {
     }
     
     public boolean ValidarComido (Pos posI, Pos posF, boolean esTurnoAI) {
+         if (posF.getX()>7 || posF.getX()<0 || posF.getY()>7 || posF.getY()<0) {
+            return false;
+        }
+        if (posI.getX()>7 || posI.getX()<0 || posI.getY()>7 || posI.getY()<0) {
+            return false;
+        }
         
+        if (posI == posF || (posI.getX()==posF.getX() && posI.getY()==posF.getY())) {
+            return false;
+        }
         if(board[posF.getY()][posF.getX()]!=Casilla.EMPTY) return false; // si hay ficha en la posicion final, retorna falso     
         Casilla ficha = board[posI.getY()][posI.getX()];        
         if (ficha==Casilla.EMPTY) return false; //si no se selecciono ninguna ficha            
@@ -401,6 +404,27 @@ public class Tablero {
             for (int j = posY-2; j <= posY+2; j++) {
                 Pos nextPos = new Pos(i, j);
                 if (Validar(curPos, nextPos, esTurnoAI)) {
+                    ans[count] = nextPos;
+                    count++;
+                }
+            }
+        }
+        Pos[] realAns;
+        int i;
+        for (i = 0; i < ans.length && ans[i]!=null; i++){}
+        realAns = new Pos[i];
+        System.arraycopy(ans, 0, realAns, 0, realAns.length);//copiar el arreglo ans a realAns
+        return realAns;
+    }
+    
+    public Pos[] PosiblesMovimientosFichaComido(Tablero start, int posX, int posY, boolean esTurnoAI) {
+        Pos[] ans = new Pos[8];
+        int count = 0;
+        Pos curPos = new Pos(posX,posY);
+        for (int i = posX-2; i <= posX+2; i++) {
+            for (int j = posY-2; j <= posY+2; j++) {
+                Pos nextPos = new Pos(i, j);
+                if (ValidarComido(curPos, nextPos, esTurnoAI)) {
                     ans[count] = nextPos;
                     count++;
                 }

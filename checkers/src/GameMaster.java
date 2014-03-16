@@ -45,6 +45,7 @@ public class GameMaster {
      * Finaliza el turno actual y añade los eventos necesarios en Log y Notificaciones
      */
     public void TerminarTurno(){
+        ultimoNull();
         if (corono) {
             AddLog(" R");
         }
@@ -57,6 +58,7 @@ public class GameMaster {
             player2.Play();
         }
         else gui.agregarNotificacion("Turno del Jugador1 - Negras");
+        
     }
     
     /*
@@ -92,12 +94,10 @@ public class GameMaster {
 //                player2.buildAndPrintArbol();
                 if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
                 if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
-                if (ultimaPos!=null) {//si comio
-                    if (board.PosiblesMovimientosFicha(board, PosF.getY(), PosF.getX(), esTurnoAI).length == 0) {
-                        TerminarTurno();
-                        ultimoNull();
-                        iteracionCero();
-                    }
+                if (ultimaPos != null) {//si comio
+                  if (board.PosiblesMovimientosFichaComido(board, PosF.getX(), PosF.getY(), esTurnoAI).length == 0) {
+                       TerminarTurno();                       
+                   }
                 }
             }
             else {
@@ -113,17 +113,16 @@ public class GameMaster {
      */
     public void realizarMovimientoComido(Pos posI, Pos PosF) { 
         if (board.ValidarComido(posI, PosF, esTurnoAI)) {
-            board.Mover(posI, PosF);
+            board.Mover(posI, PosF);            
             System.out.println(board.EvaluarEstado());
             if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-            if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");            
-        }
-        if (board.PosiblesMovimientosFicha(board, PosF.getY(), PosF.getX(), esTurnoAI).length == 0) {
-            TerminarTurno();
-            ultimoNull();
-          //iteracionCero();
-        }
-        else {
+            if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
+            if (ultimaPos != null) {//si comio
+                  if (board.PosiblesMovimientosFichaComido(board, PosF.getX(), PosF.getY(), esTurnoAI).length == 0) {
+                       TerminarTurno();                       
+                   }
+                }
+        } else {
                 gui.agregarNotificacion("Movimiento invalido");
         }
         gui.actualizarBoard(board);
