@@ -85,10 +85,10 @@ public class Tablero {
                 }
             }
             if (GameMaster.getInstance().isEsTurnoAI()) {
-                GameMaster.getInstance().setBlack(); 
+                GameMaster.getInstance().eatBlack(); 
 
             } else {
-                GameMaster.getInstance().setWhite();
+                GameMaster.getInstance().eatWhite();
             }
             GameMaster.getInstance().setUltimaPos(posF);
             //TODO

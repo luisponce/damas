@@ -10,32 +10,54 @@ public class AI {
     private Node root;
     private int minimaxLvl = 4;
     
-    public void Play(){
+    public void Play(boolean comiendo){
         GameMaster gm = GameMaster.getInstance();
+        buildArbol(minimaxLvl,comiendo);
         
-        buildArbol(minimaxLvl);
-        
-        System.out.println("arbol construido");
-        
-        Node move = MinimaxArbol(minimaxLvl);
-        
-        Tablero next = move.getBoard();
-        gm.AddLog(move.getMoveMade());
-        
-        next.PrintTablero();
-//        root.getHijos().get(0).getHijos().get(0).printNodo();
-//        System.out.println(root.getHijos().get(0).getBoard().EvaluarEstado());
-//        System.out.println("h_root: " + root.getHijos().get(0).getHijos().size());
-        
-//        debugArbol(root);
-        
-        gm.setBoard(next);
-        
-        System.out.println("minimax done");
-        
-        //TODO: if move.getmovemade empieza con C vuelva a jugar
-        
-        gm.TerminarTurno();
+        if (!comiendo) {
+//            System.out.println("arbol construido");
+
+            Node move = MinimaxArbol(minimaxLvl);
+
+            Tablero next = move.getBoard();
+            gm.AddLog(move.getMoveMade());
+
+//            next.PrintTablero();
+    //        root.getHijos().get(0).getHijos().get(0).printNodo();
+    //        System.out.println(root.getHijos().get(0).getBoard().EvaluarEstado());
+    //        System.out.println("h_root: " + root.getHijos().get(0).getHijos().size());
+
+    //        debugArbol(root);
+
+            gm.setBoard(next);
+
+//            System.out.println("minimax done");
+
+            //TODO: if move.getmovemade empieza con C vuelva a jugar
+            if (move.getMoveMade().charAt(0) == 'C') {
+                Play(true);
+            } else {
+                gm.TerminarTurno();
+            }
+
+            
+        } else {
+            //esta comiendo varios en un turno
+            System.out.println("comi!");
+            GameMaster.getInstance().eatBlack();
+            
+            
+            String move = GameMaster.getInstance().getLog();
+            move = move.substring(move.length()-2, move.length());
+            System.out.println(move);
+            if (gm.getBoard().PosiblesMovimientosFichaComido(gm.getBoard(), 
+                move.charAt(0) - '0', move.charAt(1) - '0', gm.isEsTurnoAI()).length == 0) {
+                gm.TerminarTurno();
+            } else {
+                Play(true);
+            }
+//            gm.TerminarTurno();
+        }
     }
     
     public Node MinimaxArbol(int lvl){
@@ -77,13 +99,20 @@ public class AI {
         }
     }
     
-    public void buildArbol(int lvl){
+    public void buildArbol(int lvl, boolean comiendo){
         root = new Node(GameMaster.getInstance().getBoard());
-        root.ConstruirArbol(lvl, GameMaster.getInstance().isEsTurnoAI());
+        String move = GameMaster.getInstance().getLog();
+        move = move.substring(move.length()-2, move.length());
+        if (!comiendo) {
+            root.ConstruirArbol(lvl, GameMaster.getInstance().isEsTurnoAI());
+        } else {
+            root.ConstruirArbolComido(lvl, GameMaster.getInstance().isEsTurnoAI(),  move.charAt(0) - '0', move.charAt(1) - '0');
+        }
+        
     }
     
     public void buildAndPrintArbol(int lvl){
-        buildArbol(lvl);
+        buildArbol(lvl, false);
         try {
             printArbol();
         } catch (Exception ex) {

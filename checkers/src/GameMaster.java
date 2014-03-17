@@ -55,7 +55,7 @@ public class GameMaster {
         esTurnoAI = !esTurnoAI;
         if(esTurnoAI) {
             gui.agregarNotificacion("Turno del Jugador2 - Blancas");
-            player2.Play();
+            player2.Play(false);
         }
         else gui.agregarNotificacion("Turno del Jugador1 - Negras");
         
@@ -139,6 +139,12 @@ public class GameMaster {
         }
         System.out.println("");
     }
+
+    public String getLog() {
+        return log;
+    }
+    
+    
     
     public void EndLogR(){
         corono=true;
@@ -161,11 +167,11 @@ public class GameMaster {
         return esTurnoAI;
     }
     
-    public void setBlack() {
+    public void eatBlack() {
         black = black - 1;
     }
     
-    public void setWhite() {
+    public void eatWhite() {
         white = white - 1;
     }
     
