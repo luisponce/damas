@@ -92,8 +92,16 @@ public class GameMaster {
 //                System.out.println("ultimo es: " + ultimaPos); 
 //                System.out.println(board.EvaluarEstado());
 //                player2.buildAndPrintArbol();
-                if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-                if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
+                if (GameMaster.getInstance().getBlack() == 0) {
+                    AddLog("PERDISTE");
+                    JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+                    
+                }
+                if (GameMaster.getInstance().getWhite() == 0) {
+                    AddLog("GANASTE");
+                    JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
+                    
+                }
                 if (ultimaPos != null) {//si comio
                   if (board.PosiblesMovimientosFichaComido(board, PosF.getX(), PosF.getY(), esTurnoAI).length == 0) {
                        TerminarTurno();                       

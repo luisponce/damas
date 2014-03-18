@@ -35,9 +35,10 @@ public class GUI extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent event) { 
                 gm.reiniciar(); // invoca reiniciar de GameMaster para realizar un nuevo juego
             }
-        });               
-        Opciones.add(salir);
+        });
         Opciones.add(nuevaPartida);
+        Opciones.add(salir);
+        
     }
      
     /**
