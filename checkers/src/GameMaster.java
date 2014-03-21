@@ -59,6 +59,15 @@ public class GameMaster {
         }
         else gui.agregarNotificacion("Turno del Jugador1 - Negras");
         
+        if (board.PosiblesTablerosTablero(board, esTurnoAI).length == 0) {
+            reiniciar();
+            if (esTurnoAI) {
+                MostrarGanar();
+            } else {
+                MostrarPerder();
+            }
+            
+        }
     }
     
     /*
@@ -93,14 +102,10 @@ public class GameMaster {
 //                System.out.println(board.EvaluarEstado());
 //                player2.buildAndPrintArbol();
                 if (GameMaster.getInstance().getBlack() == 0) {
-                    AddLog("PERDISTE");
-                    JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-                    
+                    MostrarPerder();
                 }
                 if (GameMaster.getInstance().getWhite() == 0) {
-                    AddLog("GANASTE");
-                    JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
-                    
+                    MostrarGanar();
                 }
                 if (ultimaPos != null) {//si comio
                   if (board.PosiblesMovimientosFichaComido(board, PosF.getX(), PosF.getY(), esTurnoAI).length == 0) {
@@ -123,8 +128,8 @@ public class GameMaster {
         if (board.ValidarComido(posI, PosF, esTurnoAI)) {
             board.Mover(posI, PosF);            
             System.out.println(board.EvaluarEstado());
-            if (GameMaster.getInstance().getBlack() == 0) JOptionPane.showMessageDialog(null, " PERDISTE :( ");
-            if (GameMaster.getInstance().getWhite() == 0) JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
+            if (GameMaster.getInstance().getBlack() == 0) MostrarPerder();
+            if (GameMaster.getInstance().getWhite() == 0) MostrarGanar();
             if (ultimaPos != null) {//si comio
                   if (board.PosiblesMovimientosFichaComido(board, PosF.getX(), PosF.getY(), esTurnoAI).length == 0) {
                        TerminarTurno();                       
@@ -208,6 +213,16 @@ public class GameMaster {
     
     public void ultimoNull() {
         ultimaPos = null; 
+    }
+    
+    public void MostrarPerder() {
+        AddLog("PERDISTE");
+        JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+    }
+    
+    public void MostrarGanar() {
+        AddLog("GANASTE");
+        JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
     }
     
     /*

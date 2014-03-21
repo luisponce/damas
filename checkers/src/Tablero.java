@@ -1,4 +1,6 @@
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 
@@ -455,6 +457,20 @@ public class Tablero {
         }
         
         return ans;
+    }
+    
+    public Tablero[] PosiblesTablerosTablero(Tablero t, boolean turnoAI) {
+        ArrayList<Tablero> arrTablero = new ArrayList<>();
+        for (int i =0; i < 8; i++) {
+            for (int j = 0; j < 8 ; j++) {
+               Tablero tmp[] = PosiblesTablerosFicha(t, new Pos(i, j), PosiblesMovimientosFicha(t, i, j, turnoAI));
+                for (Tablero tablero : tmp) {
+                    arrTablero.add(tablero);
+                }
+            }
+        }
+        Tablero[] correct = new Tablero[arrTablero.size()];
+        return arrTablero.toArray(correct);
     }
     
     public void PrintTablero(){
