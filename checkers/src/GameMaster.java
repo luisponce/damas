@@ -53,21 +53,21 @@ public class GameMaster {
         
         corono = false;
         esTurnoAI = !esTurnoAI;
+        if (board.PosiblesTablerosTablero(board, esTurnoAI).length == 0) {
+            if (esTurnoAI) {
+                MostrarGanar();
+            } else {
+                MostrarPerder();
+            }
+//            reiniciar();
+        }
         if(esTurnoAI) {
             gui.agregarNotificacion("Turno del Jugador2 - Blancas");
             player2.Play(false);
         }
         else gui.agregarNotificacion("Turno del Jugador1 - Negras");
         
-        if (board.PosiblesTablerosTablero(board, esTurnoAI).length == 0) {
-            reiniciar();
-            if (esTurnoAI) {
-                MostrarGanar();
-            } else {
-                MostrarPerder();
-            }
-            
-        }
+        
     }
     
     /*
@@ -218,11 +218,13 @@ public class GameMaster {
     public void MostrarPerder() {
         AddLog("PERDISTE");
         JOptionPane.showMessageDialog(null, " PERDISTE :( ");
+        reiniciar();
     }
     
     public void MostrarGanar() {
         AddLog("GANASTE");
         JOptionPane.showMessageDialog(null, " ! GANASTE ! ");
+        reiniciar();
     }
     
     /*

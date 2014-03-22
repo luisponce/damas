@@ -12,7 +12,9 @@ public class AI {
     
     public void Play(boolean comiendo){
         GameMaster gm = GameMaster.getInstance();
-        buildArbol(minimaxLvl,comiendo);
+        buildArbol(minimaxLvl, comiendo);
+        
+        
         
         if (!comiendo) {
 //            System.out.println("arbol construido");
@@ -43,17 +45,26 @@ public class AI {
             
         } else {
             //esta comiendo varios en un turno
-            System.out.println("comi!");
+//            System.out.println("comi!");
             GameMaster.getInstance().eatBlack();
             
             
-            String move = GameMaster.getInstance().getLog();
-            move = move.substring(move.length()-2, move.length());
-            System.out.println(move);
+            String moveString = GameMaster.getInstance().getLog();
+            moveString = moveString.substring(moveString.length()-2, moveString.length());
+            
             if (gm.getBoard().PosiblesMovimientosFichaComido(gm.getBoard(), 
-                move.charAt(0) - '0', move.charAt(1) - '0', gm.isEsTurnoAI()).length == 0) {
+                moveString.charAt(0) - '0'-1, 8 - (moveString.charAt(1) - '0'), true).length == 0) {
                 gm.TerminarTurno();
             } else {
+                
+                Node move = MinimaxArbol(minimaxLvl);
+                
+                Tablero next = move.getBoard();
+                
+                gm.AddLog(move.getMoveMade());
+                
+                gm.setBoard(next);
+                
                 Play(true);
             }
 //            gm.TerminarTurno();
@@ -106,9 +117,8 @@ public class AI {
         if (!comiendo) {
             root.ConstruirArbol(lvl, GameMaster.getInstance().isEsTurnoAI());
         } else {
-            root.ConstruirArbolComido(lvl, GameMaster.getInstance().isEsTurnoAI(),  move.charAt(0) - '0', move.charAt(1) - '0');
+            root.ConstruirArbolComido(lvl, GameMaster.getInstance().isEsTurnoAI(),  move.charAt(0) - '0'-1, 8-(move.charAt(1) - '0'));
         }
-        
     }
     
     public void buildAndPrintArbol(int lvl){
