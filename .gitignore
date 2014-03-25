@@ -6,3 +6,4 @@
 *.ear
 /checkers/nbproject/private/
 /checkers/build/
+/checkers/dist/

@@ -1,0 +1,6 @@
+Análisis de Complejidad para Minimax
+0(b^m)
+Donde b representa las jugadas permitidas en cada punto,
+es decir 0 <= b <= 12*4 puesto que la cantidad maáxima de fichas que se pueden mover son 12, cada una con un máximo de 4 movimientos; y m representa la profundidad del árbol, el cual para este caso 4.
+
+Análisis: A mayor profundidad, mayor tiempo requiere el árbol de deciciones pues tendrá que analizar más veces las posibles jugadas, es decir, si tiene 5 fichas, cada una con 4 movimientos el tiempo será (5*4)^4 (si la profundidad es igual a 4) dando un total de 160000, mientras que si la profundidad fuera 5, (5*4)^5 = 3200000, generando un incremento de 20 veces que en el caso de 4 como profundidad.

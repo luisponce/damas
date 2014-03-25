@@ -1,0 +1,21 @@
+function minimax(nodo, nivel, turnoDelMaximizador)
+    if nivel = 0 || nodo es nodo terminal
+        return el valor heuristico del nodo
+    if turnoDelMaximizador
+        mejorValor := -∞
+        for each hijo of nodo
+            val := minimax(hijo, nivel - 1, FALSE))
+            mejorValor := max(mejorValor, val);
+        return mejorValor
+    else
+        mejorValor := +∞
+        for each hijo of nodo
+            val := minimax(hijo, nivel - 1, TRUE))
+            mejorValor := min(mejorValor, val);
+        return mejorValor
+    endif
+end function
+
+
+//llamada inicial del algoritmo
+minimax(origin, nivel, TRUE)
