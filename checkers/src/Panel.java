@@ -29,10 +29,10 @@ public class Panel extends JPanel{
     public Panel() {
         if(BLANCA_IMAGE == null || NEGRA_IMAGE == null){
             try {                
-                BLANCA_IMAGE = ImageIO.read(new File("blanca.jpg"));
-                NEGRA_IMAGE = ImageIO.read(new File("negra.jpg"));
+                BLANCA_IMAGE = ImageIO.read(new File("blanca.png"));
+                NEGRA_IMAGE = ImageIO.read(new File("negra.png"));
                 BLANCA_QUEEN = ImageIO.read(new File("blancaCoronada.jpg"));
-                NEGRA_QUEEN = ImageIO.read(new File("negraCoronada.jpg"));
+                NEGRA_QUEEN = ImageIO.read(new File("negraCoronada.png"));
              } catch (Exception ex) {
                   
              }
@@ -87,9 +87,11 @@ public class Panel extends JPanel{
         super.paintComponent(g);
         g.drawImage(imagen, 0, 0, getSize().width, getSize().height, null);
         if(selected){
-            setBorder(BorderFactory.createLineBorder(Color.green));
+//            setBorder(BorderFactory.createLineBorder(Color.green));
+            setBackground(Color.GREEN);
         } else {
             setBorder(null);
+            setBackground(Color.WHITE);
         }
     }
     

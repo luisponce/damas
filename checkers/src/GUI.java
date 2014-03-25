@@ -61,7 +61,6 @@ public class GUI extends javax.swing.JFrame {
         txtNotificaciones = new javax.swing.JTextArea();
         Menu = new javax.swing.JMenuBar();
         Opciones = new javax.swing.JMenu();
-        Ayuda = new javax.swing.JMenu();
 
         jToolBar1.setRollover(true);
 
@@ -141,9 +140,6 @@ public class GUI extends javax.swing.JFrame {
 
         Opciones.setText("Opciones");
         Menu.add(Opciones);
-
-        Ayuda.setText("Ayuda");
-        Menu.add(Ayuda);
 
         setJMenuBar(Menu);
 
@@ -298,7 +294,6 @@ public class GUI extends javax.swing.JFrame {
     }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu Ayuda;
     private javax.swing.JMenuBar Menu;
     private javax.swing.JMenu Opciones;
     private javax.swing.JPanel jPanel1;
